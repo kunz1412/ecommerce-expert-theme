@@ -26,7 +26,8 @@ composer install            # PHPCS + WordPress Coding Standards
 make setup                  # = docker compose up -d + scripts/setup.sh
 ```
 
-Danach: <http://localhost:8080> · Backend: <http://localhost:8080/wp-admin> (Zugang aus `.env`).
+Danach: <http://localhost:8080> · Backend: <http://localhost:8080/wp-admin> (Zugang aus `.env`) ·
+Mails des Formulars: <http://localhost:8025> (Mailpit, fängt lokal alles ab).
 
 `scripts/setup.sh` ist **idempotent** und kann beliebig oft laufen. Es installiert per WP-CLI WordPress,
 aktiviert `de_DE`, setzt Permalinks auf `/%postname%/`, aktiviert das Theme, installiert **Contact Form 7**
@@ -66,6 +67,7 @@ node scripts/compare-reference.mjs  # Sektionshöhen: design/reference.html vs. 
 | Responsive: 390 px ohne horizontales Scrollen, Navigation, Breakpoints 960/600 | `tests/e2e/responsive.spec.ts` |
 | Formular verlangt Einwilligung, Pflichtfelder, Meldungen | `tests/e2e/form.spec.ts` |
 | **Honeypot** (`wpcf7_spam`): befülltes Feld → Spam | `tests/e2e/form.spec.ts` |
+| **Mailversand:** Formular absenden → Mail in Mailpit (Empfänger, From, Reply-To); Honeypot/ohne Einwilligung → keine Mail | `tests/e2e/mail.spec.ts` |
 | **DSGVO:** keine Requests an externe Domains, lokale Fonts, keine Cookies | `tests/e2e/privacy.spec.ts` |
 | **Barrierefreiheit:** axe (WCAG 2.1 A/AA, keine „serious/critical“-Verstöße) | `tests/e2e/a11y.spec.ts` |
 | PHPCS (WordPress Coding Standards), theme.json gegen das offizielle Schema | `phpcs.xml.dist`, `scripts/validate-theme-json.mjs` |
@@ -119,6 +121,42 @@ und in `theme.json` unter `fontFace` eintragen.
 - **Anker-Links** sind als `/#abschnitt` gesetzt, damit sie auch von Unterseiten (Impressum …) funktionieren.
 - **Formularmeldungen:** Die Standardmeldung von Contact Form 7 erscheint unter dem Formular (Erfolg: Haken-Icon und
   durchgezogener Rahmen, Fehler: Warn-Icon, gestrichelter Rahmen und Text – nicht nur Farbe).
+
+## Mailversand (SMTP)
+
+Alle WordPress-Mails (Kontaktformular, Passwort-Reset …) gehen per **SMTP** raus. Das erledigt das Must-Use-Plugin
+[`mu-plugins/ecommerce-expert-mail.php`](mu-plugins/ecommerce-expert-mail.php) über den Hook `phpmailer_init` –
+ohne SMTP-Plugin. Es gibt **keinen Fallback auf `mail()`**: Ist `SMTP_HOST` leer, wird die Mail verworfen und im
+PHP-Log vermerkt. Das Plugin liegt als Bind-Mount in `wp-content/mu-plugins/` (lokal und auf dem VPS).
+
+| Variable | Bedeutung | Lokal (Standard) |
+|---|---|---|
+| `CONTACT_MAIL_TO` | Empfänger des Kontaktformulars (hat Vorrang vor dem Wert in der Datenbank) | `kontakt@ecommerce-expert.de` |
+| `SMTP_HOST` | SMTP-Server | `mailpit` |
+| `SMTP_PORT` | `465` = SMTPS (implizites TLS), `587` = STARTTLS, sonst unverschlüsselt (nur Mailpit) | `1025` |
+| `SMTP_USER` / `SMTP_PASS` | Zugangsdaten; leer = ohne Authentifizierung | leer |
+| `SMTP_FROM` | Absenderadresse auf **eigener Domain** (Envelope-Sender und From) | `kontakt@ecommerce-expert.de` |
+
+- **From** ist immer `SMTP_FROM` (eigene Domain), **Reply-To** ist die E-Mail-Adresse aus dem Formular – so greifen
+  SPF/DKIM/DMARC und „Antworten“ geht trotzdem an den Interessenten.
+- Die Werte kommen aus `.env` (lokal) bzw. `deploy/.env` (Server), nie aus dem Code. `SMTP_PASS` gehört nicht ins Git.
+- Lokal landet jede Mail in **Mailpit** (<http://localhost:8025>), es verlässt nichts den Rechner.
+
+### SPF, DKIM, DMARC (DNS der Domain `ecommerce-expert.de`)
+
+Damit Mails des Formulars im Postfach ankommen und nicht als Spam gelten, muss der SMTP-Anbieter für die Domain
+autorisiert sein. Die genauen Werte liefert der Anbieter; Grundmuster:
+
+| Eintrag | Typ / Name | Wert (Beispiel) |
+|---|---|---|
+| **SPF** | TXT `@` | `v=spf1 include:spf.<anbieter> ~all` – es darf nur **ein** SPF-Eintrag existieren; bestehende `include:` ergänzen |
+| **DKIM** | TXT oder CNAME `<selector>._domainkey` | öffentlicher Schlüssel bzw. CNAME vom Anbieter |
+| **DMARC** | TXT `_dmarc` | `v=DMARC1; p=none; rua=mailto:dmarc@ecommerce-expert.de; adkim=s; aspf=s` |
+
+Empfohlenes Vorgehen: erst mit `p=none` starten und die Berichte (`rua`) beobachten, nach einigen Wochen auf
+`p=quarantine`, später `p=reject` erhöhen. Prüfen mit `dig TXT ecommerce-expert.de`,
+`dig TXT _dmarc.ecommerce-expert.de` und einer Testmail an einen Prüfdienst (z. B. mail-tester.com).
+`SMTP_FROM` muss beim Anbieter als Absender freigegeben sein (Postfach oder verifizierte Domain).
 
 ## Deployment auf einen VPS (Docker Compose + Caddy)
 
