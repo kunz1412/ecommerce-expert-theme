@@ -1,4 +1,5 @@
 import { expect, Page, test } from '@playwright/test';
+import { submitViaRest } from './helpers';
 
 async function fillRequired(page: Page) {
   await page.getByLabel('Name *').fill('Erika Mustermann');
@@ -67,36 +68,12 @@ test.describe('Kontaktformular', () => {
     await page.getByRole('checkbox', { name: /Datenschutzerklärung/ }).check();
     const [response] = await Promise.all([feedback(page), page.getByRole('button', { name: /Anfrage senden/ }).click()]);
     const body = await response.json();
-    // Lokal gibt es keinen Mailserver: mail_sent oder mail_failed sind beide „angenommen“.
-    expect(['mail_sent', 'mail_failed']).toContain(body.status);
+    expect(body.status).toBe('mail_sent');
     await expect(page.locator('#kontakt .wpcf7-response-output')).toBeVisible();
   });
 });
 
 test.describe('Honeypot (wpcf7_spam)', () => {
-  /** Sendet das Formular direkt an die CF7-REST-Route, wie es ein Bot ohne Browser täte. */
-  async function submit(page: Page, overrides: Record<string, string>) {
-    await page.goto('/');
-    const hidden = await page.$$eval('#kontakt form input[type="hidden"]', (els) =>
-      Object.fromEntries(els.map((e) => [(e as HTMLInputElement).name, (e as HTMLInputElement).value])),
-    );
-    const formId = hidden['_wpcf7'];
-    const res = await page.request.post(`/wp-json/contact-form-7/v1/contact-forms/${formId}/feedback`, {
-      multipart: {
-        ...hidden,
-        'your-name': 'Bot',
-        'your-email': 'bot@example.com',
-        'your-message': 'Kauf billige Uhren',
-        'project-type': 'Neuer Webshop',
-        budget: 'Noch unklar',
-        consent: '1',
-        website: '',
-        ...overrides,
-      },
-    });
-    return res.json();
-  }
-
   test('Honeypot-Feld ist unsichtbar, aus der Tab-Reihenfolge genommen und ohne Autofill', async ({ page }) => {
     await page.goto('/');
     const hp = page.locator('#f-web');
@@ -109,13 +86,12 @@ test.describe('Honeypot (wpcf7_spam)', () => {
   });
 
   test('befülltes Honeypot-Feld → Spam', async ({ page }) => {
-    const body = await submit(page, { website: 'http://spam.example' });
+    const body = await submitViaRest(page, { website: 'http://spam.example' });
     expect(body.status).toBe('spam');
   });
 
   test('leeres Honeypot-Feld → kein Spam', async ({ page }) => {
-    const body = await submit(page, {});
-    expect(body.status).not.toBe('spam');
-    expect(['mail_sent', 'mail_failed']).toContain(body.status);
+    const body = await submitViaRest(page);
+    expect(body.status).toBe('mail_sent');
   });
 });
