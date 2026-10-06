@@ -1023,12 +1023,16 @@ html {
 	max-width: 680px;
 }
 
-/* Constrained-Layout zentriert Blöcke mit max-width – im Design stehen sie linksbündig */
+/* Constrained-Layout zentriert Blöcke mit max-width – im Design stehen sie linksbündig an der Kante des 1136-px-Containers */
 .ee-section.is-layout-constrained > .ee-w-520,
 .ee-section.is-layout-constrained > .ee-w-560,
 .ee-section.is-layout-constrained > .ee-w-600,
 .ee-section.is-layout-constrained > .ee-w-680,
-.ee-section.is-layout-constrained > h2,
+.ee-section.is-layout-constrained > h2 {
+	margin-left: max(0px, calc((100% - 1136px) / 2)) !important;
+	margin-right: auto !important;
+}
+
 .ee-section .is-layout-flow > .ee-w-520,
 .ee-section .is-layout-flow > .ee-w-600,
 .ee-section .is-layout-flow > h2 {
