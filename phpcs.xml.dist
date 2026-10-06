@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset name="ecommerce-expert" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+	<description>WordPress Coding Standards für das Theme ecommerce-expert.</description>
+
+	<file>theme/ecommerce-expert</file>
+	<file>scripts/wp</file>
+
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<rule ref="WordPress"/>
+	<rule ref="PHPCompatibilityWP"/>
+	<config name="testVersion" value="8.1-"/>
+	<config name="minimum_wp_version" value="6.7"/>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="ecommerce_expert"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="ecommerce-expert"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Pattern-Dateien enthalten Block-Markup mit statischem HTML. -->
+	<rule ref="Generic.Files.EndFileNewline">
+		<exclude-pattern>*/patterns/*.php</exclude-pattern>
+	</rule>
+</ruleset>

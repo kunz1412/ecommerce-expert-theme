@@ -1,0 +1,6 @@
+npm run --silent lint:theme-json
+if [ -x vendor/bin/phpcs ]; then
+  vendor/bin/phpcs -q
+else
+  echo "PHPCS übersprungen (vendor/ fehlt – 'composer install' ausführen)."
+fi

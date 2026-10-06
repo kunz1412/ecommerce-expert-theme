@@ -78,9 +78,7 @@ function ecommerce_expert_setup() {
 }
 add_action( 'after_setup_theme', 'ecommerce_expert_setup', 20 );
 
-/* -------------------------------------------------------------------------
- * DSGVO: keine externen Requests aus dem Frontend
- * ---------------------------------------------------------------------- */
+// DSGVO: keine externen Requests aus dem Frontend.
 
 /**
  * Entfernt Emoji-Skripte/-Styles, oEmbed-Skripte, Gravatar und weitere Kopfzeilen-Einträge.
@@ -158,9 +156,7 @@ function ecommerce_expert_clean_dashboard() {
 }
 add_action( 'wp_dashboard_setup', 'ecommerce_expert_clean_dashboard' );
 
-/* -------------------------------------------------------------------------
- * Contact Form 7
- * ---------------------------------------------------------------------- */
+// Contact Form 7.
 
 // Keine automatischen <p>/<br>: das Formular-Markup steuert das Layout selbst.
 add_filter( 'wpcf7_autop_or_not', '__return_false' );
@@ -209,9 +205,7 @@ function ecommerce_expert_cf7_honeypot( $spam, $submission = null ) {
 }
 add_filter( 'wpcf7_spam', 'ecommerce_expert_cf7_honeypot', 10, 2 );
 
-/* -------------------------------------------------------------------------
- * Barrierefreiheit
- * ---------------------------------------------------------------------- */
+// Barrierefreiheit.
 
 /**
  * Macht den horizontal scrollbaren Tabellenbereich per Tastatur bedienbar (WCAG 2.1.1)
