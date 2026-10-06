@@ -388,7 +388,7 @@
 			"h3": {
 				"typography": {
 					"fontSize": "var:preset|font-size|22",
-					"lineHeight": "1.2",
+					"lineHeight": "1.55",
 					"letterSpacing": "-0.01em"
 				}
 			},

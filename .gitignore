@@ -10,3 +10,4 @@ backups/
 .idea/
 backups/*
 !backups/.gitkeep
+deploy/.env
