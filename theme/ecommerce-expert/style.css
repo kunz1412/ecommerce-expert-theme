@@ -988,3 +988,20 @@ html {
 .ee-page .wp-block-post-title {
 	margin-bottom: 32px;
 }
+
+/* Mobil: Wortmarke ausblenden (bleibt per aria-label zugänglich), damit Logo, Menü und Button in 390 px passen */
+@media (max-width: 540px) {
+	.ee-logo__name {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	.ee-header__bar {
+		gap: 12px;
+	}
+}
