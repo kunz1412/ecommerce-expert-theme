@@ -1005,3 +1005,37 @@ html {
 		gap: 12px;
 	}
 }
+
+/* Maximale Zeilenbreiten für Einleitungstexte */
+.ee-w-520 {
+	max-width: 520px;
+}
+
+.ee-w-560 {
+	max-width: 560px;
+}
+
+.ee-w-600 {
+	max-width: 600px;
+}
+
+.ee-w-680 {
+	max-width: 680px;
+}
+
+/* Constrained-Layout zentriert Blöcke mit max-width – im Design stehen sie linksbündig an der Kante des 1136-px-Containers */
+.ee-section.is-layout-constrained > .ee-w-520,
+.ee-section.is-layout-constrained > .ee-w-560,
+.ee-section.is-layout-constrained > .ee-w-600,
+.ee-section.is-layout-constrained > .ee-w-680,
+.ee-section.is-layout-constrained > h2 {
+	margin-left: max(0px, calc((100% - 1136px) / 2)) !important;
+	margin-right: auto !important;
+}
+
+.ee-section .is-layout-flow > .ee-w-520,
+.ee-section .is-layout-flow > .ee-w-600,
+.ee-section .is-layout-flow > h2 {
+	margin-left: 0 !important;
+	margin-right: auto !important;
+}
