@@ -10,7 +10,7 @@ x-wp-volumes: &wp-volumes
 
 services:
   db:
-    image: mariadb:11
+    image: mariadb:${DB_IMAGE_TAG:-11}
     restart: unless-stopped
     environment:
       MARIADB_DATABASE: ${DB_NAME:-wordpress}
