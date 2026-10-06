@@ -40,6 +40,7 @@ services:
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
       WORDPRESS_CONFIG_EXTRA: |
         define( 'WP_ENVIRONMENT_TYPE', 'local' );
+        define( 'WP_DEVELOPMENT_MODE', 'theme' );
         define( 'FS_METHOD', 'direct' );
         define( 'WP_AUTO_UPDATE_CORE', false );
     volumes: *wp-volumes
