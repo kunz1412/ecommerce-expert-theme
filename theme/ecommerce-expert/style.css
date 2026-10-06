@@ -1005,3 +1005,20 @@ html {
 		gap: 12px;
 	}
 }
+
+/* Maximale Zeilenbreiten für Einleitungstexte */
+.ee-w-520 {
+	max-width: 520px;
+}
+
+.ee-w-560 {
+	max-width: 560px;
+}
+
+.ee-w-600 {
+	max-width: 600px;
+}
+
+.ee-w-680 {
+	max-width: 680px;
+}
