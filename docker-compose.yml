@@ -1,0 +1,65 @@
+# Lokale Entwicklungsumgebung. Versioniert wird nur das Theme (theme/ecommerce-expert).
+# WordPress-Core, Plugins und Uploads leben im Volume "wordpress".
+name: ${COMPOSE_PROJECT_NAME:-ecommerce-expert}
+
+x-wp-volumes: &wp-volumes
+  - wordpress:/var/www/html
+  - ./theme/ecommerce-expert:/var/www/html/wp-content/themes/ecommerce-expert
+  - ./scripts/wp:/scripts/wp:ro
+  - ./backups:/backups
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-wordpress}
+      MARIADB_USER: ${DB_USER:-wordpress}
+      MARIADB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD fehlt (.env anlegen)}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?DB_ROOT_PASSWORD fehlt (.env anlegen)}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${WP_PORT:-8080}:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: ${DB_NAME:-wordpress}
+      WORDPRESS_DB_USER: ${DB_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_ENVIRONMENT_TYPE', 'local' );
+        define( 'FS_METHOD', 'direct' );
+        define( 'WP_AUTO_UPDATE_CORE', false );
+    volumes: *wp-volumes
+
+  wpcli:
+    image: wordpress:cli
+    profiles: ["tools"]
+    user: "33:33"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: ${DB_NAME:-wordpress}
+      WORDPRESS_DB_USER: ${DB_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      HOME: /tmp
+      WP_CLI_CACHE_DIR: /tmp/wp-cli-cache
+    volumes: *wp-volumes
+
+volumes:
+  db_data:
+  wordpress:

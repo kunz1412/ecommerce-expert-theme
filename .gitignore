@@ -8,3 +8,5 @@ screenshots/
 backups/
 *.log
 .idea/
+backups/*
+!backups/.gitkeep
