@@ -1,0 +1,32 @@
+# STAGING: komplett hinter Basic Auth, nicht indexierbar. Das ist die Standardkonfiguration des Prod-Stacks.
+{
+	email {$ACME_EMAIL}
+}
+
+{$SITE_DOMAIN} {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+		# Zusätzlich zu Basic Auth und WordPress-Einstellung „Suchmaschinen abhalten“ (blog_public=0)
+		X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+		-Server
+	}
+
+	# robots.txt bleibt ohne Login lesbar, damit Crawler das Disallow sehen
+	handle /robots.txt {
+		header Content-Type "text/plain; charset=utf-8"
+		respond "User-agent: *\nDisallow: /\n" 200
+	}
+
+	handle {
+		basic_auth {
+			{$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
+		}
+		reverse_proxy wordpress:80
+	}
+}

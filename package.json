@@ -11,7 +11,8 @@
     "lint:php": "composer run lint",
     "test": "playwright test",
     "test:e2e": "playwright test",
-    "screenshots": "node scripts/screenshots.mjs"
+    "screenshots": "node scripts/screenshots.mjs",
+    "test:smoke": "playwright test tests/e2e/sections.spec.ts tests/e2e/anchors.spec.ts tests/e2e/privacy.spec.ts tests/e2e/a11y.spec.ts tests/e2e/responsive.spec.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",

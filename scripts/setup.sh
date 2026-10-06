@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
-# Richtet die lokale WordPress-Instanz per WP-CLI ein. Idempotent: beliebig oft ausführbar.
+# Richtet die WordPress-Instanz per WP-CLI ein. Idempotent: beliebig oft ausführbar.
+#   Lokal:   ./scripts/setup.sh
+#   Staging: COMPOSE_FILE=deploy/docker-compose.yml COMPOSE_ENV_FILES=deploy/.env ENV_FILE=deploy/.env ./scripts/setup.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-[ -f .env ] || { echo "Keine .env gefunden – bitte 'cp .env.example .env' ausführen." >&2; exit 1; }
-set -a; . ./.env; set +a
+ENV_FILE="${ENV_FILE:-.env}"
+[ -f "$ENV_FILE" ] || { echo "Keine $ENV_FILE gefunden – bitte aus der .env.example kopieren." >&2; exit 1; }
+set -a; . "$ENV_FILE"; set +a
 
 WP_URL="${WP_URL:-http://localhost:8080}"
 THEME="ecommerce-expert"
@@ -38,7 +41,8 @@ wp option update timezone_string "Europe/Berlin"
 wp option update date_format "d.m.Y"
 wp option update time_format "H:i"
 wp option update blogdescription "${WP_TAGLINE:-}"
-wp option update blog_public 0   # lokal: nicht indexieren (auf dem VPS per Einstellungen > Lesen ändern)
+# Nicht indexieren – gilt lokal UND auf Staging. Erst beim freigegebenen Live-Gang auf 1 setzen (siehe README).
+wp option update blog_public 0
 
 log "Permalinks /%postname%/"
 wp rewrite structure '/%postname%/' --hard
@@ -59,13 +63,15 @@ done
 wp comment delete $(wp comment list --format=ids) --force 2>/dev/null || true
 wp plugin delete hello akismet 2>/dev/null || true
 
-log "Plugins (Contact Form 7, Create Block Theme)"
-for p in contact-form-7 create-block-theme; do
+log "Plugins (Contact Form 7; lokal zusätzlich Create Block Theme)"
+PLUGINS="contact-form-7"
+[ "${SETUP_DEV_PLUGINS:-1}" = "1" ] && PLUGINS="$PLUGINS create-block-theme"
+for p in $PLUGINS; do
   wp plugin is-installed "$p" || wp plugin install "$p"
   wp plugin activate "$p"
 done
 wp language plugin install contact-form-7 de_DE >/dev/null 2>&1 || true
-wp language plugin install create-block-theme de_DE >/dev/null 2>&1 || true
+[ "${SETUP_DEV_PLUGINS:-1}" = "1" ] && { wp language plugin install create-block-theme de_DE >/dev/null 2>&1 || true; }
 
 log "Kontaktformular"
 wp eval-file /scripts/wp/create-contact-form.php
