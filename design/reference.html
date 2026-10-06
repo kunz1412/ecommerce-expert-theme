@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>ecommerce-expert.de – One Pager</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#0A0A0A}a:hover{color:#55555A}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+.nav{display:flex;gap:32px;align-items:center}
+.nav a{color:#0A0A0A;text-decoration:none;font-size:15px;font-weight:500}
+.nav a:hover{color:#55555A}
+.btn-dark{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;background:#0A0A0A;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:15px;border:1px solid #0A0A0A;border-radius:2px;cursor:pointer;font-family:inherit}
+.btn-dark:hover{background:#2A2A2C;color:#FFFFFF}
+.btn-light{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;background:#FFFFFF;color:#0A0A0A;text-decoration:none;font-weight:600;font-size:15px;border:1px solid #FFFFFF;border-radius:2px}
+.btn-light:hover{background:#E8E8E6;color:#0A0A0A}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;background:transparent;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:15px;border:1px solid #4A4A4E;border-radius:2px}
+.btn-ghost:hover{border-color:#FFFFFF;color:#FFFFFF}
+.g-hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:64px;align-items:end}
+.g-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#E4E4E0;border:1px solid #E4E4E0}
+.g-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.g-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px}
+.g-about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:72px;align-items:center}
+.g-contact{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:72px}
+.g-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:8px;color:#0A0A0A}
+.field input,.field select,.field textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid #C9C9C5;border-radius:2px;background:#FFFFFF;font:inherit;font-size:15px;color:#0A0A0A}
+.field textarea{min-height:140px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid #0A0A0A;outline-offset:1px;border-color:#0A0A0A}
+.tbl{width:100%;border-collapse:collapse;min-width:760px}
+.tbl th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#55555A;padding:14px 20px;border-bottom:1px solid #0A0A0A}
+.tbl td{padding:22px 20px;border-bottom:1px solid #E4E4E0;font-size:15px;vertical-align:top;color:#2A2A2C}
+.tbl td:first-child{font-weight:700;color:#0A0A0A;font-size:17px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+@media (max-width:960px){
+.g-hero,.g-about,.g-contact,.g-2{grid-template-columns:minmax(0,1fr);gap:40px}
+.g-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g-3{grid-template-columns:minmax(0,1fr)}
+.nav{display:none}
+}
+@media (max-width:600px){
+.wrap{padding:0 16px}
+.g-4,.g-form{grid-template-columns:minmax(0,1fr)}
+.h1{font-size:44px !important}
+.h2{font-size:34px !important}
+}
+</style>
+</helmet>
+<div style="font-family: 'Schibsted Grotesk', system-ui, sans-serif; color: #0A0A0A; background: #FFFFFF; width: 100%; line-height: 1.55">
+
+<!-- Header -->
+<header style="position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.94); border-bottom: 1px solid #E4E4E0; backdrop-filter: blur(8px)">
+<div class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px">
+<a href="#top" style="text-decoration: none; color: #0A0A0A; display: flex; align-items: center; gap: 12px">
+<span style="width: 36px; height: 36px; background: #0A0A0A; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; letter-spacing: -0.02em">DK</span>
+<span style="font-weight: 700; font-size: 18px; letter-spacing: -0.01em">ecommerce-expert<span style="color: #8A8A8E">.de</span></span>
+</a>
+<nav class="nav" aria-label="Hauptnavigation">
+<a href="#leistungen">Leistungen</a>
+<a href="#plattformen">Plattformen</a>
+<a href="#ablauf">Ablauf</a>
+<a href="#ueber-mich">Über mich</a>
+<a href="#faq">FAQ</a>
+</nav>
+<a href="#kontakt" class="btn-dark" style="min-height: 44px; padding: 0 20px; font-size: 14px">Projekt anfragen</a>
+</div>
+</header>
+
+<!-- Hero -->
+<section id="top" style="background: #0A0A0A; color: #FFFFFF; padding: 120px 0 96px">
+<div class="wrap">
+<div class="g-hero">
+<div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A3A3A6; display: flex; align-items: center; gap: 12px; margin-bottom: 32px">
+<span style="width: 8px; height: 8px; border-radius: 50%; background: {{accent}}; display: inline-block"></span>
+Daniel Kunz · E-Commerce Developer
+</div>
+<h1 class="h1" style="margin: 0; font-size: 76px; line-height: 1.02; letter-spacing: -0.035em; font-weight: 700">Online-Shops, die verkaufen.<br><span style="color: #8A8A8E">Technik, die trägt.</span></h1>
+<p style="margin: 32px 0 0; font-size: 20px; line-height: 1.6; color: #C9C9CC; max-width: 600px">Ich konzipiere und entwickle Webshops und Websites für Händler und Unternehmen im Euroraum – mit WordPress, WooCommerce, Shopify, Shopware und commercetools. Sauber gebaut, rechtssicher aufgesetzt und schnell.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 44px">
+<a href="#kontakt" class="btn-light">Kostenloses Erstgespräch
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#leistungen" class="btn-ghost">Leistungen ansehen</a>
+</div>
+</div>
+<div style="border: 1px solid #2A2A2C; background: #111113; padding: 32px">
+<div style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: #FFFFFF; font-weight: 600; padding-bottom: 24px; border-bottom: 1px solid #2A2A2C">
+<span style="width: 10px; height: 10px; border-radius: 50%; background: #3DDC84; display: inline-block"></span>
+Verfügbar für neue Projekte
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid #2A2A2C; font-size: 15px"><span style="color: #A3A3A6">Webentwicklung</span><span style="font-weight: 600; text-align: right">seit 2016</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid #2A2A2C; font-size: 15px"><span style="color: #A3A3A6">Agenturerfahrung</span><span style="font-weight: 600; text-align: right">Shopware, commercetools</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid #2A2A2C; font-size: 15px"><span style="color: #A3A3A6">Arbeitsweise</span><span style="font-weight: 600; text-align: right">Remote · DACH &amp; EU</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 18px 0 0; font-size: 15px"><span style="color: #A3A3A6">Sprachen</span><span style="font-weight: 600; text-align: right">Deutsch · English · Español</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Platform strip -->
+<section aria-label="Plattformen" style="border-bottom: 1px solid #E4E4E0; background: #FFFFFF">
+<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; padding-top: 36px; padding-bottom: 36px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #55555A">Plattformen</span>
+<span style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em">WordPress</span>
+<span style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em">WooCommerce</span>
+<span style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em">Shopify</span>
+<span style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em">Shopware</span>
+<span style="font-size: 22px; font-weight: 700; letter-spacing: -0.02em">commercetools</span>
+</div>
+</section>
+
+<!-- Leistungen -->
+<section id="leistungen" style="padding: 120px 0">
+<div class="wrap">
+<div class="g-2" style="align-items: end; margin-bottom: 64px">
+<div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #55555A; margin-bottom: 20px">01 — Leistungen</div>
+<h2 class="h2" style="margin: 0; font-size: 52px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 700">Vom ersten Entwurf bis zum laufenden Shop.</h2>
+</div>
+<p style="margin: 0; font-size: 18px; color: #55555A; max-width: 520px">Sie bekommen alles aus einer Hand: Beratung zur passenden Plattform, Design-Umsetzung, Entwicklung, Schnittstellen und Betreuung nach dem Launch.</p>
+</div>
+<div class="g-4">
+<div style="background: #FFFFFF; padding: 40px 32px; display: flex; flex-direction: column; gap: 16px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"></path><path d="M6 6 5 3H2"></path><circle cx="9" cy="20" r="1.3"></circle><circle cx="18" cy="20" r="1.3"></circle></svg>
+<h3 style="margin: 8px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em">Webshop-Erstellung</h3>
+<p style="margin: 0; font-size: 15px; color: #55555A">Neue Online-Shops mit WooCommerce, Shopify oder Shopware – inklusive Zahlungsarten, Versand, Steuern und rechtssicherem Checkout.</p>
+</div>
+<div style="background: #FFFFFF; padding: 40px 32px; display: flex; flex-direction: column; gap: 16px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="1"></rect><path d="M3 8h18M8 21h8"></path></svg>
+<h3 style="margin: 8px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em">Websites mit WordPress</h3>
+<p style="margin: 0; font-size: 15px; color: #55555A">Unternehmensseiten und Landingpages, die Sie selbst pflegen können – schnell, suchmaschinenfreundlich und barrierearm.</p>
+</div>
+<div style="background: #FFFFFF; padding: 40px 32px; display: flex; flex-direction: column; gap: 16px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7 3 12l5 5M16 7l5 5-5 5M14 4l-4 16"></path></svg>
+<h3 style="margin: 8px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em">Headless &amp; Composable</h3>
+<p style="margin: 0; font-size: 15px; color: #55555A">API-first Commerce mit commercetools oder Headless WordPress und eigenem Frontend in Next.js oder Nuxt.</p>
+</div>
+<div style="background: #FFFFFF; padding: 40px 32px; display: flex; flex-direction: column; gap: 16px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"></path><circle cx="12" cy="12" r="3.5"></circle></svg>
+<h3 style="margin: 8px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em">Schnittstellen &amp; Betreuung</h3>
+<p style="margin: 0; font-size: 15px; color: #55555A">Anbindung von ERP, PIM und Zahlungsanbietern, Performance-Optimierung, Updates und Wartung bestehender Shops.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Plattformen -->
+<section id="plattformen" style="padding: 120px 0; background: #F4F4F2">
+<div class="wrap">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #55555A; margin-bottom: 20px">02 — Plattformen</div>
+<h2 class="h2" style="margin: 0 0 20px; font-size: 52px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 700; max-width: 780px">Welche Plattform passt zu Ihrem Geschäft?</h2>
+<p style="margin: 0 0 56px; font-size: 18px; color: #55555A; max-width: 680px">Ich bin an kein System gebunden und empfehle das, was zu Ihrer Größe, Ihrem Budget und Ihren Plänen passt.</p>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #E4E4E0">
+<table class="tbl">
+<thead>
+<tr><th scope="col">Plattform</th><th scope="col">Ideal für</th><th scope="col">Betrieb</th><th scope="col">Stärke</th></tr>
+</thead>
+<tbody>
+<tr><td>WordPress</td><td>Unternehmensseiten, Blogs, Content</td><td>Eigenes Hosting</td><td>Flexibel und günstig im Betrieb</td></tr>
+<tr><td>WooCommerce</td><td>Kleine bis mittlere Shops</td><td>Eigenes Hosting</td><td>Volle Kontrolle, keine Umsatzgebühren</td></tr>
+<tr><td>Shopify</td><td>Schneller Start mit wenig Wartung</td><td>SaaS</td><td>Hosting und Updates inklusive</td></tr>
+<tr><td>Shopware</td><td>Mittelstand und B2B</td><td>Eigenes Hosting oder Cloud</td><td>Stark im DACH-Raum und im B2B</td></tr>
+<tr><td>commercetools</td><td>Enterprise und Omnichannel</td><td>SaaS, API-first</td><td>Maximal skalierbar, Headless</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<!-- Ablauf -->
+<section id="ablauf" style="padding: 120px 0">
+<div class="wrap">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #55555A; margin-bottom: 20px">03 — Ablauf</div>
+<h2 class="h2" style="margin: 0 0 64px; font-size: 52px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 700; max-width: 780px">Klar strukturiert, ohne Überraschungen.</h2>
+<div class="g-4" style="background: transparent; border: none; gap: 32px">
+<div style="border-top: 2px solid #0A0A0A; padding-top: 24px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #55555A">01</div>
+<h3 style="margin: 12px 0 10px; font-size: 21px; font-weight: 700">Erstgespräch</h3>
+<p style="margin: 0; font-size: 15px; color: #55555A">30 Minuten per Video, kostenlos. Wir klären Ziele, Sortiment und vorhandene Systeme.</p>
+</div>
+<div style="border-top: 2px solid #0A0A0A; padding-top: 24px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #55555A">02</div>
+<h3 style="margin: 12px 0 10px; font-size: 21px; font-weight: 700">Konzept &amp; Angebot</h3>
+<p style="margin: 0; font-size: 15px; color: #55555A">Plattform-Empfehlung, Funktionsumfang und ein transparentes Festpreis-Angebot.</p>
+</div>
+<div style="border-top: 2px solid #0A0A0A; padding-top: 24px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #55555A">03</div>
+<h3 style="margin: 12px 0 10px; font-size: 21px; font-weight: 700">Umsetzung</h3>
+<p style="margin: 0; font-size: 15px; color: #55555A">Entwicklung in klaren Etappen mit Testumgebung – Sie sehen den Fortschritt jederzeit.</p>
+</div>
+<div style="border-top: 2px solid #0A0A0A; padding-top: 24px">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #55555A">04</div>
+<h3 style="margin: 12px 0 10px; font-size: 21px; font-weight: 700">Launch &amp; Betreuung</h3>
+<p style="margin: 0; font-size: 15px; color: #55555A">Go-live, Einweisung ins Backend und auf Wunsch laufende Wartung.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Rechtssicher -->
+<section aria-labelledby="recht-h" style="padding: 120px 0; background: #0A0A0A; color: #FFFFFF">
+<div class="wrap">
+<div class="g-2">
+<div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A3A3A6; margin-bottom: 20px">04 — Rechtssicher im Euroraum</div>
+<h2 id="recht-h" class="h2" style="margin: 0 0 24px; font-size: 52px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 700">Technisch sauber nach EU-Vorgaben.</h2>
+<p style="margin: 0; font-size: 18px; color: #C9C9CC">Abmahnungen entstehen oft durch technische Details. Ich setze die Anforderungen von DSGVO, Fernabsatzrecht und Barrierefreiheitsstärkungsgesetz von Anfang an mit um.</p>
+<p style="margin: 24px 0 0; font-size: 13px; color: #8A8A8E">Hinweis: Ich erbringe keine Rechtsberatung. Rechtstexte stellt ein Anwalt oder ein Rechtstexte-Dienst bereit – ich binde sie technisch korrekt ein.</p>
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="display: flex; gap: 20px; padding: 22px 0; border-bottom: 1px solid #2A2A2C">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 3px"><path d="m5 12 5 5L20 7"></path></svg>
+<div><div style="font-weight: 700; font-size: 17px">DSGVO-konforme Umsetzung</div><div style="color: #A3A3A6; font-size: 15px; margin-top: 4px">Lokal eingebundene Schriften, Consent-Management für Tracking, Hosting in der EU.</div></div>
+</div>
+<div style="display: flex; gap: 20px; padding: 22px 0; border-bottom: 1px solid #2A2A2C">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 3px"><path d="m5 12 5 5L20 7"></path></svg>
+<div><div style="font-weight: 700; font-size: 17px">Rechtssicherer Checkout</div><div style="color: #A3A3A6; font-size: 15px; margin-top: 4px">Button „zahlungspflichtig bestellen“, Preisangaben inkl. MwSt. und Versand, Widerrufsbelehrung, Bestellbestätigung.</div></div>
+</div>
+<div style="display: flex; gap: 20px; padding: 22px 0; border-bottom: 1px solid #2A2A2C">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 3px"><path d="m5 12 5 5L20 7"></path></svg>
+<div><div style="font-weight: 700; font-size: 17px">Barrierefreiheit nach BFSG</div><div style="color: #A3A3A6; font-size: 15px; margin-top: 4px">Seit Juni 2025 für viele Online-Shops Pflicht: Kontraste, Tastaturbedienung, Screenreader-Tauglichkeit.</div></div>
+</div>
+<div style="display: flex; gap: 20px; padding: 22px 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 3px"><path d="m5 12 5 5L20 7"></path></svg>
+<div><div style="font-weight: 700; font-size: 17px">Impressum, Datenschutz &amp; AGB</div><div style="color: #A3A3A6; font-size: 15px; margin-top: 4px">Korrekt verlinkt und von jeder Seite mit einem Klick erreichbar.</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Pakete -->
+<section id="pakete" style="padding: 120px 0">
+<div class="wrap">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #55555A; margin-bottom: 20px">05 — Pakete</div>
+<h2 class="h2" style="margin: 0 0 20px; font-size: 52px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 700; max-width: 780px">Transparente Preise als Orientierung.</h2>
+<p style="margin: 0 0 56px; font-size: 18px; color: #55555A; max-width: 680px">Jedes Projekt erhält ein individuelles Festpreis-Angebot. Die Pakete zeigen, womit Sie rechnen können.</p>
+<div class="g-3">
+<div style="border: 1px solid #E4E4E0; padding: 40px 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="font-weight: 700; font-size: 20px">Website</div>
+<div><span style="font-size: 15px; color: #55555A">ab </span><span style="font-size: 40px; font-weight: 700; letter-spacing: -0.02em">[PREIS] €</span></div>
+<ul style="margin: 0; padding: 0 0 0 18px; color: #2A2A2C; font-size: 15px; display: flex; flex-direction: column; gap: 8px">
+<li>WordPress mit individuellem Design</li>
+<li>Bis zu [ANZAHL] Seiten</li>
+<li>Kontaktformular, SEO-Grundlagen</li>
+<li>Einweisung ins Backend</li>
+</ul>
+<a href="#kontakt" style="margin-top: auto; font-weight: 600; font-size: 15px">Anfragen →</a>
+</div>
+<div style="border: 1px solid #0A0A0A; background: #0A0A0A; color: #FFFFFF; padding: 40px 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px"><span style="font-weight: 700; font-size: 20px">Webshop</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid #4A4A4E; padding: 4px 10px">Beliebt</span></div>
+<div><span style="font-size: 15px; color: #A3A3A6">ab </span><span style="font-size: 40px; font-weight: 700; letter-spacing: -0.02em">[PREIS] €</span></div>
+<ul style="margin: 0; padding: 0 0 0 18px; color: #D6D6D8; font-size: 15px; display: flex; flex-direction: column; gap: 8px">
+<li>WooCommerce oder Shopify</li>
+<li>Zahlungsarten und Versandregeln</li>
+<li>Rechtssicherer Checkout</li>
+<li>Produktimport bis [ANZAHL] Artikel</li>
+</ul>
+<a href="#kontakt" class="btn-light" style="margin-top: auto">Anfragen</a>
+</div>
+<div style="border: 1px solid #E4E4E0; padding: 40px 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="font-weight: 700; font-size: 20px">Individuell</div>
+<div><span style="font-size: 40px; font-weight: 700; letter-spacing: -0.02em">Auf Anfrage</span></div>
+<ul style="margin: 0; padding: 0 0 0 18px; color: #2A2A2C; font-size: 15px; display: flex; flex-direction: column; gap: 8px">
+<li>Shopware oder commercetools</li>
+<li>Headless-Frontend</li>
+<li>ERP-, PIM- und API-Anbindungen</li>
+<li>Migration bestehender Shops</li>
+</ul>
+<a href="#kontakt" style="margin-top: auto; font-weight: 600; font-size: 15px">Gespräch vereinbaren →</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Über mich -->
+<section id="ueber-mich" style="padding: 120px 0; background: #F4F4F2">
+<div class="wrap">
+<div class="g-about">
+<div style="position: relative">
+<img src="/_blob/31da502839ed0c82887bb59fe1fde02e" alt="Porträt von Daniel Kunz" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; filter: grayscale(100%) contrast(1.05)">
+<div style="position: absolute; left: 0; bottom: 0; background: #0A0A0A; color: #FFFFFF; padding: 16px 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase">Fachinformatiker · Anwendungsentwicklung</div>
+</div>
+<div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #55555A; margin-bottom: 20px">06 — Über mich</div>
+<h2 class="h2" style="margin: 0 0 28px; font-size: 52px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 700">Hallo, ich bin Daniel.</h2>
+<p style="margin: 0 0 18px; font-size: 18px; color: #2A2A2C">Ich entwickle seit 2016 Software für das Web. In einer E-Commerce-Agentur habe ich Online-Shops mit Shopware und commercetools umgesetzt, Microservices in der Google Cloud gebaut und REST-APIs für Frontend- und Mobile-Anwendungen entwickelt.</p>
+<p style="margin: 0 0 36px; font-size: 18px; color: #2A2A2C">Diese Erfahrung bringe ich jetzt direkt zu Ihnen: ein fester Ansprechpartner statt wechselnder Teams, Code-Reviews und automatisierte Tests als Standard – und Projekte auf Deutsch, Englisch oder Spanisch.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="border: 1px solid #C9C9C5; padding: 6px 14px; font-size: 14px; font-weight: 500; background: #FFFFFF">PHP · Symfony</span>
+<span style="border: 1px solid #C9C9C5; padding: 6px 14px; font-size: 14px; font-weight: 500; background: #FFFFFF">TypeScript</span>
+<span style="border: 1px solid #C9C9C5; padding: 6px 14px; font-size: 14px; font-weight: 500; background: #FFFFFF">Next.js · React</span>
+<span style="border: 1px solid #C9C9C5; padding: 6px 14px; font-size: 14px; font-weight: 500; background: #FFFFFF">Nuxt · Vue 3</span>
+<span style="border: 1px solid #C9C9C5; padding: 6px 14px; font-size: 14px; font-weight: 500; background: #FFFFFF">Google Cloud</span>
+<span style="border: 1px solid #C9C9C5; padding: 6px 14px; font-size: 14px; font-weight: 500; background: #FFFFFF">REST-APIs</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="padding: 120px 0">
+<div class="wrap">
+<div class="g-2">
+<div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #55555A; margin-bottom: 20px">07 — FAQ</div>
+<h2 class="h2" style="margin: 0; font-size: 52px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 700">Häufige Fragen</h2>
+</div>
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{faqs}}" as="f" hint-placeholder-count="5">
+<div style="border-bottom: 1px solid #E4E4E0">
+<button type="button" onClick="{{f.toggle}}" aria-expanded="{{f.expanded}}" style="width: 100%; min-height: 64px; display: flex; justify-content: space-between; align-items: center; gap: 16px; background: none; border: none; padding: 20px 0; font: inherit; font-size: 18px; font-weight: 600; color: #0A0A0A; text-align: left; cursor: pointer">
+<span>{{f.q}}</span>
+<span style="font-size: 24px; font-weight: 400; flex: none">{{f.sign}}</span>
+</button>
+<sc-if value="{{f.isOpen}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0 0 24px; font-size: 16px; color: #55555A; max-width: 560px">{{f.a}}</p>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Kontakt -->
+<section id="kontakt" style="padding: 120px 0; background: #0A0A0A; color: #FFFFFF">
+<div class="wrap">
+<div class="g-contact">
+<div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A3A3A6; margin-bottom: 20px">08 — Kontakt</div>
+<h2 class="h2" style="margin: 0 0 24px; font-size: 52px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 700">Lassen Sie uns über Ihr Projekt sprechen.</h2>
+<p style="margin: 0 0 40px; font-size: 18px; color: #C9C9CC">Beschreiben Sie kurz Ihr Vorhaben. Ich melde mich innerhalb von [ZEITRAUM] mit einem Terminvorschlag für das kostenlose Erstgespräch.</p>
+<div style="display: flex; flex-direction: column; gap: 16px; font-size: 16px">
+<a href="mailto:[E-MAIL]" style="color: #FFFFFF; display: flex; align-items: center; gap: 14px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="m3 7 9 6 9-6"></path></svg>
+[E-MAIL]</a>
+<div style="display: flex; align-items: center; gap: 14px; color: #C9C9CC">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"></path></svg>
+Remote für Kunden in DACH und der EU</div>
+</div>
+</div>
+<div style="background: #FFFFFF; color: #0A0A0A; padding: 44px">
+<sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+<div role="status" style="display: flex; flex-direction: column; gap: 16px; padding: 40px 0">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>
+<div style="font-size: 26px; font-weight: 700">Vielen Dank für Ihre Anfrage.</div>
+<p style="margin: 0; font-size: 16px; color: #55555A">Ich habe Ihre Nachricht erhalten und melde mich in Kürze bei Ihnen.</p>
+<button type="button" class="btn-dark" onClick="{{reset}}" style="align-self: flex-start">Neue Anfrage</button>
+</div>
+</sc-if>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{true}}">
+<form onSubmit="{{submit}}" style="display: flex; flex-direction: column; gap: 20px" novalidate="">
+<div class="g-form">
+<div class="field"><label for="f-name">Name *</label><input id="f-name" name="name" type="text" autocomplete="name" required=""></div>
+<div class="field"><label for="f-mail">E-Mail *</label><input id="f-mail" name="email" type="email" autocomplete="email" required=""></div>
+<div class="field"><label for="f-firma">Unternehmen</label><input id="f-firma" name="company" type="text" autocomplete="organization"></div>
+<div class="field"><label for="f-art">Projektart</label>
+<select id="f-art" name="type">
+<option>Neuer Webshop</option>
+<option>Website mit WordPress</option>
+<option>Headless / commercetools</option>
+<option>Bestehenden Shop erweitern</option>
+<option>Wartung &amp; Betreuung</option>
+</select></div>
+</div>
+<div class="field"><label for="f-budget">Budgetrahmen</label>
+<select id="f-budget" name="budget">
+<option>Noch unklar</option>
+<option>[BUDGET-STUFE 1]</option>
+<option>[BUDGET-STUFE 2]</option>
+<option>[BUDGET-STUFE 3]</option>
+</select></div>
+<div class="field"><label for="f-msg">Ihre Nachricht *</label><textarea id="f-msg" name="message" required=""></textarea></div>
+<div class="hp" aria-hidden="true"><label for="f-web">Website</label><input id="f-web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<label for="f-consent" style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: #2A2A2C; cursor: pointer">
+<input id="f-consent" type="checkbox" checked="{{consent}}" onChange="{{toggleConsent}}" style="width: 20px; height: 20px; margin: 2px 0 0; flex: none; accent-color: #0A0A0A">
+<span>Ich habe die <a href="#datenschutz">Datenschutzerklärung</a> gelesen und stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden. Die Einwilligung kann ich jederzeit per E-Mail widerrufen. *</span>
+</label>
+<sc-if value="{{showError}}" hint-placeholder-val="{{false}}">
+<p role="alert" style="margin: 0; font-size: 14px; color: #B42318; font-weight: 600">Bitte bestätigen Sie die Datenschutzerklärung, um die Anfrage zu senden.</p>
+</sc-if>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<span style="font-size: 13px; color: #55555A">* Pflichtfelder · Übertragung verschlüsselt</span>
+<button type="submit" class="btn-dark">Anfrage senden
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+</div>
+</form>
+</sc-if>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer style="background: #0A0A0A; color: #A3A3A6; border-top: 1px solid #2A2A2C">
+<div class="wrap" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding-top: 36px; padding-bottom: 36px; font-size: 14px">
+<span>© 2026 Daniel Kunz · ecommerce-expert.de</span>
+<nav aria-label="Rechtliches" style="display: flex; flex-wrap: wrap; gap: 28px">
+<a href="#impressum" style="color: #FFFFFF; text-decoration: none">Impressum</a>
+<a href="#datenschutz" style="color: #FFFFFF; text-decoration: none">Datenschutz</a>
+<a href="#barrierefreiheit" style="color: #FFFFFF; text-decoration: none">Barrierefreiheit</a>
+</nav>
+<span>Keine Tracking-Cookies · Hosting in der EU</span>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3DDC84","options":["#3DDC84","#FFFFFF","#C8B68A","#8A8A8E"]},"$preview":{"width":1440,"height":6400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { open: 0, consent: false, sent: false, triedSubmit: false };
+  }
+  renderVals() {
+    const items = [
+      { q: 'Was kostet ein Webshop?', a: 'Das hängt von Plattform, Design und Funktionsumfang ab. Nach dem Erstgespräch erhalten Sie ein verbindliches Festpreis-Angebot – ohne versteckte Kosten.' },
+      { q: 'Wie lange dauert die Umsetzung?', a: 'Eine Website ist meist in wenigen Wochen online, ein Webshop je nach Umfang in einigen Wochen bis Monaten. Den genauen Zeitplan legen wir im Konzept fest.' },
+      { q: 'Kümmern Sie sich auch um Hosting und Domain?', a: 'Ja. Ich empfehle passendes Hosting in der EU, richte es ein und übernehme auf Wunsch Updates, Backups und Monitoring.' },
+      { q: 'Kann ich Inhalte später selbst pflegen?', a: 'Ja. Sie erhalten eine Einweisung ins Backend und können Produkte, Seiten und Texte eigenständig bearbeiten.' },
+      { q: 'Arbeiten Sie auch mit bestehenden Shops?', a: 'Ja – von Erweiterungen und Performance-Optimierung bis zur Migration auf eine andere Plattform.' }
+    ];
+    const faqs = items.map((it, i) => {
+      const isOpen = this.state.open === i;
+      return { ...it, isOpen, expanded: isOpen ? 'true' : 'false', sign: isOpen ? '–' : '+', toggle: () => this.setState({ open: isOpen ? -1 : i }) };
+    });
+    return {
+      accent: this.props.accent ?? '#3DDC84',
+      faqs,
+      consent: this.state.consent,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      showError: this.state.triedSubmit && !this.state.consent,
+      toggleConsent: () => this.setState({ consent: !this.state.consent }),
+      submit: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        if (!this.state.consent) { this.setState({ triedSubmit: true }); return; }
+        this.setState({ sent: true, triedSubmit: false });
+      },
+      reset: () => this.setState({ sent: false, consent: false, triedSubmit: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+.env
+.DS_Store
+node_modules/
+vendor/
+playwright-report/
+test-results/
+screenshots/
+backups/
+*.log
+.idea/
