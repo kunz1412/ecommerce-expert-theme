@@ -243,3 +243,15 @@ function ecommerce_expert_table_a11y( $block_content, $block ) {
 	return $processor->get_updated_html();
 }
 add_filter( 'render_block_core/table', 'ecommerce_expert_table_a11y', 10, 2 );
+
+/**
+ * Führt Shortcodes in Shortcode-Blöcken auch innerhalb von Block-Templates/Patterns aus
+ * (dort werden sie nicht mehr automatisch verarbeitet), z. B. das Kontaktformular.
+ *
+ * @param string $block_content Gerenderter Block.
+ * @return string
+ */
+function ecommerce_expert_render_shortcode_block( $block_content ) {
+	return do_shortcode( $block_content );
+}
+add_filter( 'render_block_core/shortcode', 'ecommerce_expert_render_shortcode_block' );

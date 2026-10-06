@@ -49,7 +49,7 @@
 
 <!-- wp:group {"backgroundColor":"paper","textColor":"ink","className":"ee-contact-card"} -->
 <div class="wp-block-group ee-contact-card has-ink-color has-paper-background-color has-text-color has-background"><!-- wp:shortcode -->
-[contact-form-7 title="Kontakt"]
+[contact-form-7 title=Kontakt]
 <!-- /wp:shortcode --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></section>

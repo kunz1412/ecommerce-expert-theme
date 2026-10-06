@@ -1022,3 +1022,16 @@ html {
 .ee-w-680 {
 	max-width: 680px;
 }
+
+/* Constrained-Layout zentriert Blöcke mit max-width – im Design stehen sie linksbündig */
+.ee-section.is-layout-constrained > .ee-w-520,
+.ee-section.is-layout-constrained > .ee-w-560,
+.ee-section.is-layout-constrained > .ee-w-600,
+.ee-section.is-layout-constrained > .ee-w-680,
+.ee-section.is-layout-constrained > h2,
+.ee-section .is-layout-flow > .ee-w-520,
+.ee-section .is-layout-flow > .ee-w-600,
+.ee-section .is-layout-flow > h2 {
+	margin-left: 0 !important;
+	margin-right: auto !important;
+}
