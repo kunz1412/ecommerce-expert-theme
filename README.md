@@ -56,6 +56,7 @@ npx playwright test             # alle E2E-Tests (Desktop 1440 px + Mobil 390 px
 npx playwright test --project=mobile
 npm run lint                    # theme.json-Schema + PHPCS
 npm run screenshots             # Screenshots (1440/390 px) nach screenshots/
+node scripts/compare-reference.mjs  # Sektionshöhen: design/reference.html vs. Theme
 ```
 
 | Test | Datei |
