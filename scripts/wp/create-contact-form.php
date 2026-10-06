@@ -39,8 +39,21 @@ $mail['additional_headers'] = 'Reply-To: [your-email]';
 $mail['body']               = "Name: [your-name]\nE-Mail: [your-email]\nUnternehmen: [company]\nProjektart: [project-type]\nBudgetrahmen: [budget]\n\nNachricht:\n[your-message]\n\n-- \nGesendet über das Kontaktformular von [_site_url]";
 $mail['use_html']           = false;
 
-$messages = $form->prop( 'messages' );
-$messages['accept_terms'] = 'Bitte bestätigen Sie die Datenschutzerklärung, um die Anfrage zu senden.';
+$messages = array_merge(
+	$form->prop( 'messages' ),
+	array(
+		// Sie-Form (das Sprachpaket duzt) und Texte aus dem Design.
+		'mail_sent_ok'      => 'Vielen Dank für Ihre Anfrage. Ich habe Ihre Nachricht erhalten und melde mich in Kürze bei Ihnen.',
+		'mail_sent_ng'      => 'Die Nachricht konnte leider nicht gesendet werden. Bitte versuchen Sie es später erneut oder schreiben Sie mir per E-Mail.',
+		'validation_error'  => 'Ein oder mehrere Felder sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut.',
+		'spam'              => 'Die Nachricht konnte nicht gesendet werden.',
+		'accept_terms'      => 'Bitte bestätigen Sie die Datenschutzerklärung, um die Anfrage zu senden.',
+		'invalid_required'  => 'Dieses Feld ist erforderlich.',
+		'invalid_email'     => 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
+		'invalid_too_long'  => 'Die Eingabe ist zu lang.',
+		'invalid_too_short' => 'Die Eingabe ist zu kurz.',
+	)
+);
 
 $form->set_properties(
 	array(
