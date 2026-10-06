@@ -1,0 +1,16 @@
+<div class="ee-form">
+<div class="ee-form__grid">
+<div class="ee-field"><label for="f-name">Name *</label>[text* your-name id:f-name autocomplete:name]</div>
+<div class="ee-field"><label for="f-mail">E-Mail *</label>[email* your-email id:f-mail autocomplete:email]</div>
+<div class="ee-field"><label for="f-firma">Unternehmen</label>[text company id:f-firma autocomplete:organization]</div>
+<div class="ee-field"><label for="f-art">Projektart</label>[select project-type id:f-art "Neuer Webshop" "Website mit WordPress" "Headless / commercetools" "Bestehenden Shop erweitern" "Wartung & Betreuung"]</div>
+</div>
+<div class="ee-field"><label for="f-budget">Budgetrahmen</label>[select budget id:f-budget "Noch unklar" "&#91;BUDGET-STUFE 1&#93;" "&#91;BUDGET-STUFE 2&#93;" "&#91;BUDGET-STUFE 3&#93;"]</div>
+<div class="ee-field"><label for="f-msg">Ihre Nachricht *</label>[textarea* your-message id:f-msg]</div>
+<div class="ee-hp" aria-hidden="true"><label for="f-web">Website</label>[text website id:f-web tabindex:-1 autocomplete:off]</div>
+<div class="ee-consent">[acceptance consent id:f-consent]Ich habe die <a href="{{PRIVACY_URL}}">Datenschutzerklärung</a> gelesen und stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden. Die Einwilligung kann ich jederzeit per E-Mail widerrufen. *[/acceptance]</div>
+<div class="ee-form__actions">
+<span class="ee-form__note">* Pflichtfelder · Übertragung verschlüsselt</span>
+<button type="submit" class="wpcf7-submit ee-btn">Anfrage senden <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+</div>
+</div>

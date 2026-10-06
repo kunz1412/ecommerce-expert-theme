@@ -1,0 +1,28 @@
+{
+  "name": "ecommerce-expert-theme",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Business-Website ecommerce-expert.de – WordPress-Block-Theme (Child von Twenty Twenty-Five)",
+  "scripts": {
+    "prepare": "husky",
+    "fonts": "node scripts/copy-fonts.mjs",
+    "lint": "npm run lint:theme-json && npm run lint:php",
+    "lint:theme-json": "node scripts/validate-theme-json.mjs",
+    "lint:php": "composer run lint",
+    "test": "playwright test",
+    "test:e2e": "playwright test",
+    "screenshots": "node scripts/screenshots.mjs",
+    "test:smoke": "playwright test tests/e2e/sections.spec.ts tests/e2e/anchors.spec.ts tests/e2e/privacy.spec.ts tests/e2e/a11y.spec.ts tests/e2e/responsive.spec.ts"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@fontsource/jetbrains-mono": "^5.1.0",
+    "@fontsource/schibsted-grotesk": "^5.1.0",
+    "@playwright/test": "^1.49.0",
+    "ajv": "^8.17.0",
+    "ajv-formats": "^3.0.1",
+    "husky": "^9.1.0"
+  }
+}

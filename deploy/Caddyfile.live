@@ -1,0 +1,30 @@
+# LIVE – ERST NACH AUSDRÜCKLICHER FREIGABE VERWENDEN (CADDYFILE=./Caddyfile.live in deploy/.env).
+# Öffentlich erreichbar, ohne Basic Auth, indexierbar. Vorher: Rechtstexte, Platzhalter, Mailversand, DNS (SPF/DKIM/DMARC).
+
+{
+	email {$ACME_EMAIL}
+}
+
+{$SITE_DOMAIN} {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+		-Server
+	}
+
+	# Statische Theme-Dateien (Schriften, Bilder) lange cachen
+	@assets path /wp-content/themes/ecommerce-expert/assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+
+	reverse_proxy wordpress:80
+}
+
+# www → Hauptdomain
+www.{$SITE_DOMAIN} {
+	redir https://{$SITE_DOMAIN}{uri} permanent
+}
