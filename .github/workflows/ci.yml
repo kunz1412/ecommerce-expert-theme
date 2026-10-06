@@ -1,0 +1,108 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# Die Pull Requests des Projekts bauen aufeinander auf (gestapelte Branches). Damit der Pflicht-Check für `main`
+# schon beim ersten PR grün werden kann, prüfen die Jobs zuerst, welche Teile des Projekts im jeweiligen Stand
+# existieren ("probe"), und führen nur die passenden Schritte aus. Im vollständigen Projekt laufen alle Schritte.
+jobs:
+  lint:
+    name: Lint (commitlint, theme.json, PHPCS)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+
+      - name: Vorhandene Projektteile erkennen
+        id: probe
+        run: |
+          if [ -f scripts/validate-theme-json.mjs ] && [ -f theme/ecommerce-expert/theme.json ]; then echo "theme_json=true" >> "$GITHUB_OUTPUT"; fi
+          if [ -f composer.json ] && [ -f phpcs.xml.dist ]; then echo "phpcs=true" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Conventional Commits (nur Pull Requests)
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --from "${{ github.event.pull_request.base.sha }}" --to "${{ github.event.pull_request.head.sha }}" --verbose
+
+      - name: theme.json gegen das WordPress-Schema validieren
+        if: steps.probe.outputs.theme_json == 'true'
+        run: npm run lint:theme-json
+
+      - uses: shivammathur/setup-php@v2
+        if: steps.probe.outputs.phpcs == 'true'
+        with:
+          php-version: "8.3"
+          tools: composer
+      - name: PHPCS (WordPress Coding Standards)
+        if: steps.probe.outputs.phpcs == 'true'
+        run: |
+          composer install --no-interaction --prefer-dist
+          composer run lint
+
+  e2e:
+    name: E2E (Playwright gegen WordPress in Docker)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vorhandene Projektteile erkennen
+        id: probe
+        run: |
+          if [ -f docker-compose.yml ] && [ -f playwright.config.ts ] && [ -f scripts/setup.sh ] && [ -f theme/ecommerce-expert/functions.php ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "E2E noch nicht möglich in diesem Stand (Docker-Umgebung, Theme oder Tests fehlen) – übersprungen."
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.probe.outputs.ready == 'true'
+        with:
+          node-version: 22
+          cache: npm
+      - name: Abhängigkeiten installieren
+        if: steps.probe.outputs.ready == 'true'
+        run: npm ci --ignore-scripts
+
+      - name: Playwright-Browser installieren
+        if: steps.probe.outputs.ready == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Umgebung konfigurieren
+        if: steps.probe.outputs.ready == 'true'
+        run: cp .env.example .env
+
+      - name: WordPress starten und einrichten (docker compose + WP-CLI)
+        if: steps.probe.outputs.ready == 'true'
+        run: ./scripts/setup.sh
+
+      - name: E2E-, Datenschutz-, Mail- und Accessibility-Tests
+        if: steps.probe.outputs.ready == 'true'
+        run: npx playwright test
+
+      - name: Docker-Logs bei Fehlern
+        if: failure() && steps.probe.outputs.ready == 'true'
+        run: docker compose logs --no-color --tail=200
+
+      - name: Berichte hochladen
+        if: always() && steps.probe.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
