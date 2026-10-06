@@ -1,0 +1,479 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "ecommerce-expert",
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": true,
+		"layout": {
+			"contentSize": "1136px",
+			"wideSize": "1136px"
+		},
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"custom": false,
+			"customGradient": false,
+			"customDuotone": false,
+			"palette": [
+				{
+					"slug": "ink",
+					"name": "Ink (Schwarz)",
+					"color": "#0A0A0A"
+				},
+				{
+					"slug": "paper",
+					"name": "Paper (Weiß)",
+					"color": "#FFFFFF"
+				},
+				{
+					"slug": "soft",
+					"name": "Soft (Hellgrau)",
+					"color": "#F4F4F2"
+				},
+				{
+					"slug": "line",
+					"name": "Line (Linie)",
+					"color": "#E4E4E0"
+				},
+				{
+					"slug": "muted",
+					"name": "Muted (Gedämpft)",
+					"color": "#55555A"
+				},
+				{
+					"slug": "subtle",
+					"name": "Subtle (Dezent auf Hell)",
+					"color": "#6B6B70"
+				},
+				{
+					"slug": "dim",
+					"name": "Dim (Dezent auf Dunkel)",
+					"color": "#8A8A8E"
+				},
+				{
+					"slug": "dark-line",
+					"name": "Dark Line (Linie auf Dunkel)",
+					"color": "#2A2A2C"
+				},
+				{
+					"slug": "dark-muted",
+					"name": "Dark Muted (Gedämpft auf Dunkel)",
+					"color": "#A3A3A6"
+				},
+				{
+					"slug": "dark-text",
+					"name": "Dark Text (Fließtext auf Dunkel)",
+					"color": "#C9C9CC"
+				},
+				{
+					"slug": "dark-panel",
+					"name": "Dark Panel (Karte auf Dunkel)",
+					"color": "#111113"
+				},
+				{
+					"slug": "error",
+					"name": "Fehler",
+					"color": "#B42318"
+				},
+				{
+					"slug": "accent",
+					"name": "Akzent (nur Status-Punkt)",
+					"color": "#3DDC84"
+				},
+				{
+					"slug": "base",
+					"name": "Base (Alias für Paper)",
+					"color": "#FFFFFF"
+				},
+				{
+					"slug": "contrast",
+					"name": "Contrast (Alias für Ink)",
+					"color": "#0A0A0A"
+				}
+			]
+		},
+		"typography": {
+			"defaultFontSizes": false,
+			"customFontSize": false,
+			"fluid": false,
+			"fontFamilies": [
+				{
+					"slug": "schibsted-grotesk",
+					"name": "Schibsted Grotesk",
+					"fontFamily": "\"Schibsted Grotesk\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "Schibsted Grotesk",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/schibsted-grotesk-latin-400-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "Schibsted Grotesk",
+							"fontStyle": "normal",
+							"fontWeight": "500",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/schibsted-grotesk-latin-500-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "Schibsted Grotesk",
+							"fontStyle": "normal",
+							"fontWeight": "600",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/schibsted-grotesk-latin-600-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "Schibsted Grotesk",
+							"fontStyle": "normal",
+							"fontWeight": "700",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/schibsted-grotesk-latin-700-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "Schibsted Grotesk",
+							"fontStyle": "normal",
+							"fontWeight": "800",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/schibsted-grotesk-latin-800-normal.woff2"
+							]
+						}
+					]
+				},
+				{
+					"slug": "jetbrains-mono",
+					"name": "JetBrains Mono",
+					"fontFamily": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Menlo, monospace",
+					"fontFace": [
+						{
+							"fontFamily": "JetBrains Mono",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/jetbrains-mono-latin-400-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "JetBrains Mono",
+							"fontStyle": "normal",
+							"fontWeight": "500",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/jetbrains-mono-latin-500-normal.woff2"
+							]
+						}
+					]
+				}
+			],
+			"fontSizes": [
+				{
+					"name": "11 px",
+					"slug": "11",
+					"size": "11px"
+				},
+				{
+					"name": "12 px",
+					"slug": "12",
+					"size": "12px"
+				},
+				{
+					"name": "13 px",
+					"slug": "13",
+					"size": "13px"
+				},
+				{
+					"name": "14 px",
+					"slug": "14",
+					"size": "14px"
+				},
+				{
+					"name": "15 px",
+					"slug": "15",
+					"size": "15px"
+				},
+				{
+					"name": "16 px",
+					"slug": "16",
+					"size": "16px"
+				},
+				{
+					"name": "17 px",
+					"slug": "17",
+					"size": "17px"
+				},
+				{
+					"name": "18 px",
+					"slug": "18",
+					"size": "18px"
+				},
+				{
+					"name": "20 px",
+					"slug": "20",
+					"size": "20px"
+				},
+				{
+					"name": "21 px",
+					"slug": "21",
+					"size": "21px"
+				},
+				{
+					"name": "22 px",
+					"slug": "22",
+					"size": "22px"
+				},
+				{
+					"name": "26 px",
+					"slug": "26",
+					"size": "26px"
+				},
+				{
+					"name": "40 px",
+					"slug": "40",
+					"size": "40px"
+				},
+				{
+					"name": "52 px",
+					"slug": "52",
+					"size": "52px"
+				},
+				{
+					"name": "76 px",
+					"slug": "76",
+					"size": "76px"
+				}
+			]
+		},
+		"spacing": {
+			"defaultSpacingSizes": false,
+			"units": [
+				"px",
+				"rem",
+				"%",
+				"vw"
+			],
+			"spacingSizes": [
+				{
+					"slug": "10",
+					"name": "8 px",
+					"size": "8px"
+				},
+				{
+					"slug": "20",
+					"name": "12 px",
+					"size": "12px"
+				},
+				{
+					"slug": "30",
+					"name": "16 px",
+					"size": "16px"
+				},
+				{
+					"slug": "40",
+					"name": "24 px",
+					"size": "24px"
+				},
+				{
+					"slug": "50",
+					"name": "32 px",
+					"size": "32px"
+				},
+				{
+					"slug": "60",
+					"name": "48 px",
+					"size": "48px"
+				},
+				{
+					"slug": "70",
+					"name": "64 px",
+					"size": "64px"
+				},
+				{
+					"slug": "80",
+					"name": "96 px",
+					"size": "96px"
+				},
+				{
+					"slug": "90",
+					"name": "120 px",
+					"size": "120px"
+				}
+			]
+		},
+		"border": {
+			"radius": true
+		},
+		"custom": {
+			"gutter": "32px",
+			"radius": "2px",
+			"headerHeight": "76px"
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var:preset|color|paper",
+			"text": "var:preset|color|ink"
+		},
+		"typography": {
+			"fontFamily": "var:preset|font-family|schibsted-grotesk",
+			"fontSize": "var:preset|font-size|16",
+			"fontWeight": "400",
+			"lineHeight": "1.55",
+			"letterSpacing": "normal"
+		},
+		"spacing": {
+			"blockGap": "0px",
+			"padding": {
+				"left": "0",
+				"right": "0",
+				"top": "0",
+				"bottom": "0"
+			}
+		},
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var:preset|color|ink"
+				},
+				"typography": {
+					"textDecoration": "underline"
+				},
+				":hover": {
+					"color": {
+						"text": "var:preset|color|muted"
+					}
+				},
+				":focus": {
+					"typography": {
+						"textDecoration": "underline"
+					}
+				}
+			},
+			"heading": {
+				"color": {
+					"text": "inherit"
+				},
+				"typography": {
+					"fontFamily": "var:preset|font-family|schibsted-grotesk",
+					"fontWeight": "700",
+					"lineHeight": "1.2",
+					"letterSpacing": "-0.01em"
+				}
+			},
+			"h1": {
+				"typography": {
+					"fontSize": "var:preset|font-size|76",
+					"lineHeight": "1.02",
+					"letterSpacing": "-0.035em"
+				}
+			},
+			"h2": {
+				"typography": {
+					"fontSize": "var:preset|font-size|52",
+					"lineHeight": "1.05",
+					"letterSpacing": "-0.03em"
+				}
+			},
+			"h3": {
+				"typography": {
+					"fontSize": "var:preset|font-size|22",
+					"lineHeight": "1.2",
+					"letterSpacing": "-0.01em"
+				}
+			},
+			"button": {
+				"color": {
+					"background": "var:preset|color|ink",
+					"text": "var:preset|color|paper"
+				},
+				"border": {
+					"color": "var:preset|color|ink",
+					"width": "1px",
+					"style": "solid",
+					"radius": "2px"
+				},
+				"spacing": {
+					"padding": {
+						"top": "0",
+						"bottom": "0",
+						"left": "24px",
+						"right": "24px"
+					}
+				},
+				"typography": {
+					"fontFamily": "var:preset|font-family|schibsted-grotesk",
+					"fontSize": "var:preset|font-size|15",
+					"fontWeight": "600",
+					"lineHeight": "1.55",
+					"textDecoration": "none"
+				},
+				":hover": {
+					"color": {
+						"background": "var:preset|color|dark-line",
+						"text": "var:preset|color|paper"
+					},
+					"border": {
+						"color": "var:preset|color|dark-line"
+					},
+					"typography": {
+						"textDecoration": "none"
+					}
+				},
+				":focus": {
+					"color": {
+						"background": "var:preset|color|dark-line",
+						"text": "var:preset|color|paper"
+					}
+				},
+				":active": {
+					"color": {
+						"background": "var:preset|color|dark-line",
+						"text": "var:preset|color|paper"
+					}
+				}
+			}
+		},
+		"blocks": {
+			"core/button": {
+				"border": {
+					"radius": "2px"
+				},
+				"spacing": {
+					"padding": {
+						"top": "0",
+						"bottom": "0",
+						"left": "24px",
+						"right": "24px"
+					}
+				},
+				"typography": {
+					"fontSize": "var:preset|font-size|15",
+					"fontWeight": "600"
+				}
+			},
+			"core/list": {
+				"spacing": {
+					"padding": {
+						"left": "18px"
+					}
+				}
+			},
+			"core/table": {
+				"typography": {
+					"fontSize": "var:preset|font-size|15"
+				}
+			}
+		}
+	}
+}
