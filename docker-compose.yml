@@ -5,8 +5,17 @@ name: ${COMPOSE_PROJECT_NAME:-ecommerce-expert}
 x-wp-volumes: &wp-volumes
   - wordpress:/var/www/html
   - ./theme/ecommerce-expert:/var/www/html/wp-content/themes/ecommerce-expert
+  - ./mu-plugins:/var/www/html/wp-content/mu-plugins:ro
   - ./scripts/wp:/scripts/wp:ro
   - ./backups:/backups
+
+x-mail-env: &mail-env
+  CONTACT_MAIL_TO: ${CONTACT_MAIL_TO:-kontakt@ecommerce-expert.de}
+  SMTP_HOST: ${SMTP_HOST:-mailpit}
+  SMTP_PORT: ${SMTP_PORT:-1025}
+  SMTP_USER: ${SMTP_USER:-}
+  SMTP_PASS: ${SMTP_PASS:-}
+  SMTP_FROM: ${SMTP_FROM:-kontakt@ecommerce-expert.de}
 
 services:
   db:
@@ -25,15 +34,28 @@ services:
       timeout: 5s
       retries: 20
 
+  # Lokaler Mail-Catcher: SMTP auf mailpit:1025, Weboberfläche und API auf http://localhost:8025
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "${MAILPIT_PORT:-8025}:8025"
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: "1"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "1"
+
   wordpress:
     image: wordpress:php8.3-apache
     restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
+      mailpit:
+        condition: service_started
     ports:
       - "${WP_PORT:-8080}:80"
     environment:
+      <<: *mail-env
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: ${DB_NAME:-wordpress}
       WORDPRESS_DB_USER: ${DB_USER:-wordpress}
@@ -53,6 +75,7 @@ services:
       db:
         condition: service_healthy
     environment:
+      <<: *mail-env
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: ${DB_NAME:-wordpress}
       WORDPRESS_DB_USER: ${DB_USER:-wordpress}

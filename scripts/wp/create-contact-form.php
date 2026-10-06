@@ -20,6 +20,7 @@ function ecommerce_expert_save_contact_form() {
 	$template  = file_get_contents( __DIR__ . '/contact-form.txt' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- lokale Datei.
 	$template  = str_replace( '{{PRIVACY_URL}}', esc_url( home_url( '/datenschutz/' ) ), $template );
 	$recipient = getenv( 'CONTACT_MAIL_TO' ) ? getenv( 'CONTACT_MAIL_TO' ) : get_option( 'admin_email' );
+	$from      = getenv( 'SMTP_FROM' ) ? getenv( 'SMTP_FROM' ) : 'wordpress@' . wp_parse_url( home_url(), PHP_URL_HOST );
 
 	$existing = get_posts(
 		array(
@@ -41,7 +42,7 @@ function ecommerce_expert_save_contact_form() {
 
 	$mail                       = $form->prop( 'mail' );
 	$mail['subject']            = 'Neue Projektanfrage von [your-name]';
-	$mail['sender']             = '[_site_title] <wordpress@' . wp_parse_url( home_url(), PHP_URL_HOST ) . '>';
+	$mail['sender']             = '[_site_title] <' . $from . '>';
 	$mail['recipient']          = $recipient;
 	$mail['additional_headers'] = 'Reply-To: [your-email]';
 	$mail['body']               = "Name: [your-name]\nE-Mail: [your-email]\nUnternehmen: [company]\nProjektart: [project-type]\nBudgetrahmen: [budget]\n\nNachricht:\n[your-message]\n\n-- \nGesendet über das Kontaktformular von [_site_url]";

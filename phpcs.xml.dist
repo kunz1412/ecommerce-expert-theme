@@ -4,6 +4,7 @@
 
 	<file>theme/ecommerce-expert</file>
 	<file>scripts/wp</file>
+	<file>mu-plugins</file>
 
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
