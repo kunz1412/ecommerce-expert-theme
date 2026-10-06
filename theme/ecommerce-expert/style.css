@@ -1,0 +1,990 @@
+/*
+Theme Name: ecommerce-expert
+Theme URI: https://ecommerce-expert.de
+Author: Daniel Kunz
+Author URI: https://ecommerce-expert.de
+Description: Business-Website für ecommerce-expert.de – Child-Theme von Twenty Twenty-Five. Nur Core-Blöcke, lokale Schriften, keine Drittanbieter-Requests.
+Template: twentytwentyfive
+x-release-please-start-version
+Version: 0.1.0
+x-release-please-end
+Requires at least: 6.7
+Requires PHP: 8.1
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: ecommerce-expert
+Tags: block-theme, full-site-editing, accessibility-ready, one-column, custom-colors
+*/
+
+/* ==========================================================================
+   Basis
+   Farben, Schriften und Abstände kommen aus theme.json (Presets). Hier steht nur,
+   was Core-Blöcke nicht ausdrücken können (Grids, Linien, Pseudo-Elemente, Breakpoints).
+   ========================================================================== */
+
+:root {
+	--ee-gutter: 32px;
+	--ee-header-height: 76px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+}
+
+:where(.wp-site-blocks) :where(p, h1, h2, h3, h4, ul, ol, figure) {
+	margin-block: 0;
+}
+
+html {
+	scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+/* Fokus: gut sichtbar auf hellen und dunklen Flächen (WCAG 2.4.7) */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+	outline: 2px solid var(--wp--preset--color--ink);
+	outline-offset: 2px;
+}
+
+.has-ink-background-color :focus-visible,
+.has-dark-panel-background-color :focus-visible {
+	outline-color: var(--wp--preset--color--paper);
+}
+
+.has-paper-background-color :focus-visible,
+.has-soft-background-color :focus-visible {
+	outline-color: var(--wp--preset--color--ink);
+}
+
+/* Sektionen: Hintergrund läuft randlos, Inhalt max. 1200 px inkl. Gutter (wie .wrap im Design) */
+.ee-section {
+	padding-left: var(--ee-gutter);
+	padding-right: var(--ee-gutter);
+	scroll-margin-top: var(--ee-header-height);
+}
+
+.admin-bar .ee-section {
+	scroll-margin-top: calc(var(--ee-header-height) + var(--wp-admin--admin-bar--height, 32px));
+}
+
+/* Eyebrow / Labels (JetBrains Mono) */
+.ee-eyebrow {
+	margin: 0 0 20px;
+	font-family: var(--wp--preset--font-family--jetbrains-mono);
+	font-size: 13px;
+	font-weight: 400;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.ee-mono {
+	font-family: var(--wp--preset--font-family--jetbrains-mono);
+}
+
+/* Überschriften in Sektionen */
+.ee-section h2 {
+	max-width: 780px;
+}
+
+.ee-grid-2 h2,
+.ee-grid-about h2,
+.ee-grid-contact h2 {
+	max-width: none;
+}
+
+/* ==========================================================================
+   Grids (Breakpoints wie im Design: 960 px und 600 px)
+   ========================================================================== */
+
+.ee-grid-hero,
+.ee-grid-2,
+.ee-grid-3,
+.ee-grid-4,
+.ee-grid-about,
+.ee-grid-contact,
+.ee-form__grid {
+	display: grid;
+}
+
+.ee-grid-hero {
+	grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+	gap: 64px;
+	align-items: end;
+}
+
+.ee-grid-2 {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 64px;
+}
+
+.ee-grid-2--end {
+	align-items: end;
+}
+
+.ee-grid-3 {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 24px;
+}
+
+.ee-grid-4 {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 1px;
+	background: var(--wp--preset--color--line);
+	border: 1px solid var(--wp--preset--color--line);
+}
+
+.ee-grid-4--steps {
+	gap: 32px;
+	background: transparent;
+	border: 0;
+}
+
+.ee-grid-about,
+.ee-grid-contact {
+	grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+	gap: 72px;
+}
+
+.ee-grid-about {
+	align-items: center;
+}
+
+@media (max-width: 960px) {
+	.ee-grid-hero,
+	.ee-grid-2,
+	.ee-grid-about,
+	.ee-grid-contact {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 40px;
+	}
+
+	.ee-grid-3 {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.ee-grid-4 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 600px) {
+	:root {
+		--ee-gutter: 16px;
+	}
+
+	.ee-grid-4,
+	.ee-form__grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.wp-site-blocks h1 {
+		font-size: 44px;
+	}
+
+	.wp-site-blocks h2 {
+		font-size: 34px;
+	}
+}
+
+/* ==========================================================================
+   Header (sticky) und Navigation
+   ========================================================================== */
+
+.ee-site-header {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+.admin-bar .ee-site-header {
+	top: var(--wp-admin--admin-bar--height, 32px);
+}
+
+/* Blur auf einem Pseudo-Element: backdrop-filter am Header selbst würde das fixierte Mobil-Menü einsperren. */
+.ee-header {
+	position: relative;
+	border-bottom: 1px solid var(--wp--preset--color--line);
+	padding-left: var(--ee-gutter);
+	padding-right: var(--ee-gutter);
+}
+
+.ee-header::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: rgba(255, 255, 255, 0.94);
+	backdrop-filter: blur(8px);
+}
+
+.ee-header__bar {
+	min-height: var(--ee-header-height);
+	flex-wrap: nowrap;
+}
+
+.ee-logo {
+	margin: 0;
+	font-size: 18px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+
+.ee-logo a {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	color: var(--wp--preset--color--ink);
+	text-decoration: none;
+}
+
+.ee-logo__mark {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--paper);
+	font-size: 15px;
+	font-weight: 800;
+	letter-spacing: -0.02em;
+}
+
+.ee-logo__tld {
+	color: var(--wp--preset--color--subtle);
+}
+
+.ee-nav .wp-block-navigation-item__content {
+	color: var(--wp--preset--color--ink);
+	font-size: 15px;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.ee-nav .wp-block-navigation-item__content:hover {
+	color: var(--wp--preset--color--muted);
+}
+
+/* Einklappen ab 960 px (Core würde schon bei 600 px umschalten) */
+@media (min-width: 600px) and (max-width: 960px) {
+	.ee-nav.wp-block-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) {
+		display: none;
+	}
+
+	.ee-nav.wp-block-navigation .wp-block-navigation__responsive-container-open:not(.always-shown) {
+		display: flex;
+	}
+}
+
+.ee-nav .wp-block-navigation__responsive-container-open {
+	min-width: 44px;
+	min-height: 44px;
+	justify-content: center;
+	align-items: center;
+}
+
+.ee-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content {
+	font-size: 22px;
+	padding: 8px 0;
+}
+
+/* ==========================================================================
+   Buttons: dunkel (Standard, theme.json), hell, ghost, Pfeil
+   ========================================================================== */
+
+.wp-block-button__link,
+.ee-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	min-height: 48px;
+	text-decoration: none;
+}
+
+.wp-block-button.is-style-ee-light .wp-block-button__link {
+	background: var(--wp--preset--color--paper);
+	border-color: var(--wp--preset--color--paper);
+	color: var(--wp--preset--color--ink);
+}
+
+.wp-block-button.is-style-ee-light .wp-block-button__link:hover,
+.wp-block-button.is-style-ee-light .wp-block-button__link:focus {
+	background: #e8e8e6;
+	border-color: #e8e8e6;
+	color: var(--wp--preset--color--ink);
+}
+
+.wp-block-button.is-style-ee-ghost .wp-block-button__link {
+	background: transparent;
+	border-color: #4a4a4e;
+	color: var(--wp--preset--color--paper);
+}
+
+.wp-block-button.is-style-ee-ghost .wp-block-button__link:hover,
+.wp-block-button.is-style-ee-ghost .wp-block-button__link:focus {
+	background: transparent;
+	border-color: var(--wp--preset--color--paper);
+	color: var(--wp--preset--color--paper);
+}
+
+.ee-btn--sm .wp-block-button__link {
+	min-height: 44px;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 14px;
+}
+
+/* Pfeil per CSS-Maske (data-URI, kein Request) */
+.ee-btn--arrow .wp-block-button__link::after {
+	content: "";
+	width: 18px;
+	height: 18px;
+	background: currentcolor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.ee-btn {
+	padding: 0 24px;
+	background: var(--wp--preset--color--ink);
+	border: 1px solid var(--wp--preset--color--ink);
+	border-radius: 2px;
+	color: var(--wp--preset--color--paper);
+	font-family: inherit;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.ee-btn:hover {
+	background: var(--wp--preset--color--dark-line);
+	border-color: var(--wp--preset--color--dark-line);
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+.ee-hero__eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 32px;
+}
+
+.ee-hero__eyebrow .ee-eyebrow {
+	margin: 0;
+}
+
+.ee-dot {
+	display: inline-block;
+	flex: none;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+}
+
+.ee-dot--lg {
+	width: 10px;
+	height: 10px;
+}
+
+.ee-hero__lead {
+	max-width: 600px;
+}
+
+.ee-hero__actions {
+	margin-top: 44px;
+}
+
+.ee-hero-card {
+	padding: 32px;
+	border: 1px solid var(--wp--preset--color--dark-line);
+}
+
+.ee-status {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding-bottom: 24px;
+	border-bottom: 1px solid var(--wp--preset--color--dark-line);
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.ee-kv {
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 18px 0;
+	border-bottom: 1px solid var(--wp--preset--color--dark-line);
+	font-size: 15px;
+}
+
+.ee-kv:last-child {
+	padding-bottom: 0;
+	border-bottom: 0;
+}
+
+.ee-kv > p:last-child {
+	font-weight: 600;
+	text-align: right;
+}
+
+/* ==========================================================================
+   Plattform-Leiste
+   ========================================================================== */
+
+.ee-strip {
+	border-bottom: 1px solid var(--wp--preset--color--line);
+}
+
+.ee-strip__inner {
+	gap: 24px 40px;
+	padding-top: 36px;
+	padding-bottom: 36px;
+}
+
+.ee-strip .ee-eyebrow {
+	margin: 0;
+	font-size: 12px;
+}
+
+.ee-platform {
+	margin: 0;
+	font-size: 22px;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   Leistungen
+   ========================================================================== */
+
+.ee-section-head {
+	margin-bottom: 64px;
+}
+
+.ee-service {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 40px 32px;
+}
+
+.ee-service h3 {
+	margin: 8px 0 0;
+	letter-spacing: -0.01em;
+}
+
+.ee-service svg {
+	flex: none;
+}
+
+/* ==========================================================================
+   Plattformen (Tabelle, horizontal scrollbar)
+   ========================================================================== */
+
+.wp-block-table.ee-table {
+	overflow-x: auto;
+	background: var(--wp--preset--color--paper);
+	border: 1px solid var(--wp--preset--color--line);
+}
+
+.wp-block-table.ee-table table {
+	width: 100%;
+	min-width: 760px;
+	border: 0;
+	border-collapse: collapse;
+}
+
+.wp-block-table.ee-table th {
+	padding: 14px 20px;
+	border: 0;
+	border-bottom: 1px solid var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--muted);
+	font-family: var(--wp--preset--font-family--jetbrains-mono);
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+.wp-block-table.ee-table td {
+	padding: 22px 20px;
+	border: 0;
+	border-bottom: 1px solid var(--wp--preset--color--line);
+	color: var(--wp--preset--color--dark-line);
+	font-size: 15px;
+	vertical-align: top;
+}
+
+.wp-block-table.ee-table td:first-child {
+	color: var(--wp--preset--color--ink);
+	font-size: 17px;
+	font-weight: 700;
+}
+
+/* ==========================================================================
+   Ablauf
+   ========================================================================== */
+
+.ee-step {
+	padding-top: 24px;
+	border-top: 2px solid var(--wp--preset--color--ink);
+}
+
+.ee-step h3 {
+	margin: 12px 0 10px;
+}
+
+/* ==========================================================================
+   Rechtssicher (dunkel)
+   ========================================================================== */
+
+.ee-check {
+	display: flex;
+	gap: 20px;
+	padding: 22px 0;
+	border-bottom: 1px solid var(--wp--preset--color--dark-line);
+}
+
+.ee-check:last-child {
+	border-bottom: 0;
+}
+
+.ee-check svg {
+	flex: none;
+	margin-top: 3px;
+	color: var(--wp--preset--color--paper);
+}
+
+.ee-check__title {
+	font-size: 17px;
+	font-weight: 700;
+}
+
+.ee-check__text {
+	margin-top: 4px;
+	font-size: 15px;
+}
+
+/* ==========================================================================
+   Pakete
+   ========================================================================== */
+
+.ee-price-card {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: 40px 32px;
+	border: 1px solid var(--wp--preset--color--line);
+}
+
+.ee-price-card--featured {
+	border-color: var(--wp--preset--color--ink);
+}
+
+.ee-price-card__head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+}
+
+.ee-price-card__name {
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.ee-badge {
+	padding: 4px 10px;
+	border: 1px solid #4a4a4e;
+	font-family: var(--wp--preset--font-family--jetbrains-mono);
+	font-size: 11px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.ee-price__pre {
+	font-size: 15px;
+}
+
+.ee-price__value {
+	font-size: 40px;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.ee-price-card ul {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin: 0;
+	padding: 0 0 0 18px;
+	font-size: 15px;
+}
+
+.ee-price-card ul li {
+	margin: 0;
+	padding: 0;
+}
+
+.ee-price-card__link,
+.ee-price-card .wp-block-buttons {
+	margin-top: auto;
+}
+
+.ee-price-card__link {
+	font-size: 15px;
+	font-weight: 600;
+}
+
+/* ==========================================================================
+   Über mich
+   ========================================================================== */
+
+.ee-about__media {
+	position: relative;
+}
+
+.wp-block-image.ee-portrait,
+.wp-block-image.ee-portrait img {
+	display: block;
+	width: 100%;
+	margin: 0;
+}
+
+.wp-block-image.ee-portrait img {
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	filter: grayscale(100%) contrast(1.05);
+}
+
+.ee-portrait-label {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	margin: 0;
+	padding: 16px 20px;
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--paper);
+	font-family: var(--wp--preset--font-family--jetbrains-mono);
+	font-size: 12px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.ee-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.ee-chip {
+	margin: 0;
+	padding: 6px 14px;
+	border: 1px solid #c9c9c5;
+	background: var(--wp--preset--color--paper);
+	font-size: 14px;
+	font-weight: 500;
+}
+
+/* ==========================================================================
+   FAQ (Details-Block)
+   ========================================================================== */
+
+.ee-faq .wp-block-details {
+	margin: 0;
+	border-bottom: 1px solid var(--wp--preset--color--line);
+}
+
+.ee-faq .wp-block-details summary {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	min-height: 64px;
+	padding: 20px 0;
+	font-size: 18px;
+	font-weight: 600;
+	list-style: none;
+	cursor: pointer;
+}
+
+.ee-faq .wp-block-details summary::-webkit-details-marker {
+	display: none;
+}
+
+.ee-faq .wp-block-details summary::after {
+	content: "+" / "";
+	flex: none;
+	font-size: 24px;
+	font-weight: 400;
+}
+
+.ee-faq .wp-block-details[open] summary::after {
+	content: "–" / "";
+}
+
+.ee-faq .wp-block-details > :not(summary) {
+	max-width: 560px;
+	margin: 0 0 24px;
+	font-size: 16px;
+}
+
+/* ==========================================================================
+   Kontakt und Formular (Contact Form 7)
+   ========================================================================== */
+
+.ee-contact-lines {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	font-size: 16px;
+}
+
+.ee-contact-line {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.ee-contact-line svg {
+	flex: none;
+}
+
+.ee-contact-line a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.ee-contact-line a:hover {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.ee-contact-card {
+	padding: 44px;
+}
+
+.ee-form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.ee-form__grid {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 20px;
+}
+
+.ee-field label {
+	display: block;
+	margin-bottom: 8px;
+	color: var(--wp--preset--color--ink);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.ee-field input,
+.ee-field select,
+.ee-field textarea {
+	width: 100%;
+	min-height: 48px;
+	padding: 12px 14px;
+	border: 1px solid var(--wp--preset--color--dim);
+	border-radius: 2px;
+	background: var(--wp--preset--color--paper);
+	color: var(--wp--preset--color--ink);
+	font: inherit;
+	font-size: 15px;
+}
+
+.ee-field textarea {
+	min-height: 140px;
+	resize: vertical;
+}
+
+.ee-field input:focus,
+.ee-field select:focus,
+.ee-field textarea:focus {
+	border-color: var(--wp--preset--color--ink);
+	outline: 2px solid var(--wp--preset--color--ink);
+	outline-offset: 1px;
+}
+
+.wpcf7-form-control-wrap {
+	display: block;
+}
+
+/* Honeypot: visuell versteckt, aber nicht display:none (sonst füllen Bots es nicht aus) */
+.ee-hp {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.ee-consent label {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	color: var(--wp--preset--color--dark-line);
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.ee-consent input {
+	flex: none;
+	width: 20px;
+	height: 20px;
+	margin: 2px 0 0;
+	accent-color: var(--wp--preset--color--ink);
+}
+
+.ee-form__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.ee-form__note {
+	color: var(--wp--preset--color--muted);
+	font-size: 13px;
+}
+
+/* CF7-Meldungen: Erfolg und Fehler unterscheiden sich durch Icon, Rahmenstil und Text – nicht nur durch Farbe */
+.wpcf7 form.init .wpcf7-response-output,
+.wpcf7 form .wpcf7-response-output:empty {
+	display: none;
+}
+
+.wpcf7 form .wpcf7-response-output {
+	position: relative;
+	margin: 20px 0 0;
+	padding: 16px 20px 16px 56px;
+	border: 2px solid var(--wp--preset--color--ink);
+	background: var(--wp--preset--color--paper);
+	color: var(--wp--preset--color--ink);
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.wpcf7 form .wpcf7-response-output::before {
+	content: "";
+	position: absolute;
+	top: 16px;
+	left: 20px;
+	width: 24px;
+	height: 24px;
+	background: currentcolor;
+	-webkit-mask: var(--ee-icon) center / contain no-repeat;
+	mask: var(--ee-icon) center / contain no-repeat;
+}
+
+.wpcf7 form.sent .wpcf7-response-output {
+	--ee-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='m8 12 3 3 5-6'/%3E%3C/svg%3E");
+}
+
+.wpcf7 form.invalid .wpcf7-response-output,
+.wpcf7 form.unaccepted .wpcf7-response-output,
+.wpcf7 form.failed .wpcf7-response-output,
+.wpcf7 form.aborted .wpcf7-response-output,
+.wpcf7 form.spam .wpcf7-response-output {
+	--ee-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3 2 21h20z'/%3E%3Cpath d='M12 10v5M12 18h.01'/%3E%3C/svg%3E");
+	border-style: dashed;
+	border-color: var(--wp--preset--color--error);
+	color: var(--wp--preset--color--error);
+}
+
+.wpcf7-not-valid-tip {
+	display: block;
+	margin-top: 6px;
+	color: var(--wp--preset--color--error);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.wpcf7-not-valid {
+	border-color: var(--wp--preset--color--error);
+}
+
+.ee-field .wpcf7-not-valid {
+	border-width: 2px;
+}
+
+.wpcf7 .screen-reader-response {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.wpcf7 .hidden-fields-container {
+	display: none;
+}
+
+.wpcf7-spinner {
+	display: none;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.ee-footer {
+	padding: 36px var(--ee-gutter);
+	border-top: 1px solid var(--wp--preset--color--dark-line);
+	font-size: 14px;
+}
+
+.ee-footer__inner {
+	gap: 20px;
+}
+
+.ee-footer a,
+.ee-footer .wp-block-navigation-item__content {
+	color: var(--wp--preset--color--paper);
+	text-decoration: none;
+}
+
+.ee-footer a:hover,
+.ee-footer .wp-block-navigation-item__content:hover {
+	color: var(--wp--preset--color--paper);
+	text-decoration: underline;
+}
+
+/* ==========================================================================
+   Unterseiten (Impressum, Datenschutz, Barrierefreiheit)
+   ========================================================================== */
+
+.ee-page {
+	padding-top: 96px;
+	padding-bottom: 96px;
+}
+
+.ee-page .wp-block-post-title {
+	margin-bottom: 32px;
+}
