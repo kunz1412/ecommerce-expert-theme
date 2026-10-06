@@ -56,6 +56,7 @@ Lokal läuft WordPress mit `WP_DEVELOPMENT_MODE=theme`, damit Pattern-Änderunge
 npx playwright test             # alle E2E-Tests (Desktop 1440 px + Mobil 390 px), WordPress muss laufen
 npx playwright test --project=mobile
 npm run lint                    # theme.json-Schema + PHPCS
+npm run test:smoke              # Teilmenge ohne Mail-Test (für Staging/Live, mit BASIC_AUTH_USER/PASS)
 npm run screenshots             # Screenshots (1440/390 px) nach screenshots/
 node scripts/compare-reference.mjs  # Sektionshöhen: design/reference.html vs. Theme
 ```
@@ -158,55 +159,55 @@ Empfohlenes Vorgehen: erst mit `p=none` starten und die Berichte (`rua`) beobach
 `dig TXT _dmarc.ecommerce-expert.de` und einer Testmail an einen Prüfdienst (z. B. mail-tester.com).
 `SMTP_FROM` muss beim Anbieter als Absender freigegeben sein (Postfach oder verifizierte Domain).
 
-## Deployment auf einen VPS (Docker Compose + Caddy)
+## Deployment (Staging und Live)
 
-Voraussetzungen: VPS in der EU mit Docker, DNS-A/AAAA-Eintrag für `ecommerce-expert.de` (und `www`), Ports 80/443 offen.
+Der Server-Stack liegt in [`deploy/`](deploy): Caddy (automatisches TLS) → WordPress (Apache, PHP 8.3) → MariaDB.
+**Standard ist Staging** (`deploy/Caddyfile.staging`): komplett hinter **Basic Auth**, `X-Robots-Tag: noindex`, `robots.txt`
+mit `Disallow: /` und WordPress-Einstellung „Suchmaschinen abhalten“. Die Live-Konfiguration (`Caddyfile.live`) ist vorbereitet,
+wird aber nur nach ausdrücklicher Freigabe aktiviert (siehe [TODO.md](TODO.md)).
+
+### Staging aufsetzen
+
+Voraussetzungen: VPS in der EU mit Docker, DNS-A/AAAA für `staging.ecommerce-expert.de`, Ports 80/443 offen.
 
 ```bash
 # 1. Code auf den Server
 git clone <repo-url> /srv/ecommerce-expert && cd /srv/ecommerce-expert
 
 # 2. Konfiguration
-cp deploy/.env.example deploy/.env      # Domain, ACME-E-Mail, Passwörter eintragen
+cp deploy/.env.example deploy/.env
+docker run --rm caddy:2 caddy hash-password --plaintext 'GEHEIMES-PASSWORT'   # Ausgabe als BASIC_AUTH_HASH in einfache Anführungszeichen
+nano deploy/.env        # Domain, Basic Auth, DB-/Admin-Passwörter, SMTP-Zugang (siehe „Mailversand“)
 
-# 3. Starten (Caddy holt automatisch Let's-Encrypt-Zertifikate)
-docker compose --env-file deploy/.env -f deploy/docker-compose.yml up -d
+# 3. Für diese Shell auf den Server-Stack umschalten (Compose-Datei, Env, Setup-Skript)
+export COMPOSE_FILE=deploy/docker-compose.yml COMPOSE_ENV_FILES=deploy/.env ENV_FILE=deploy/.env
 
-# 4a. Neue Installation per WP-CLI (Alias für den Prod-Stack) …
-export COMPOSE_FILE=deploy/docker-compose.yml COMPOSE_ENV_FILES=deploy/.env
-alias wpc='docker compose run --rm -T wpcli wp'
-wpc core install --url=https://ecommerce-expert.de --title="ecommerce-expert.de" \
-    --admin_user=<name> --admin_password=<passwort> --admin_email=<mail> --skip-email
-wpc language core install de_DE --activate
-wpc rewrite structure '/%postname%/'
-wpc theme activate ecommerce-expert
-wpc plugin install contact-form-7 --activate
-wpc language plugin install contact-form-7 de_DE
-docker compose run --rm -T -e CONTACT_MAIL_TO=<empfaenger> wpcli wp eval-file /scripts/wp/create-contact-form.php
-wpc option update blog_public 1         # Suchmaschinen erlauben, sobald Rechtstexte stehen
+# 4. Starten und per WP-CLI einrichten (idempotent: Sprache, Permalinks, Theme, Contact Form 7, Formular, Entwurfsseiten)
+docker compose up -d
+./scripts/setup.sh
 
-# 4b. … oder Umzug der lokalen Instanz
-make db-export                                   # lokal: → backups/db-….sql, per scp auf den Server kopieren
-# auf dem Server (COMPOSE_FILE/COMPOSE_ENV_FILES wie oben gesetzt):
-./scripts/db-import.sh backups/db-….sql http://localhost:8080 https://ecommerce-expert.de
+# 5. Schutz prüfen (401 ohne Login, noindex, robots.txt, …)
+BASIC_AUTH_USER=staging BASIC_AUTH_PASS='GEHEIMES-PASSWORT' scripts/check-staging.sh https://staging.ecommerce-expert.de
+
+# 6. Smoke-Tests gegen Staging (ohne Mail-Test, der braucht Mailpit)
+WP_URL=https://staging.ecommerce-expert.de BASIC_AUTH_USER=staging BASIC_AUTH_PASS='GEHEIMES-PASSWORT' SKIP_MAIL_TESTS=1 npm run test:smoke
 ```
 
-Die Skripte `scripts/db-export.sh` und `scripts/db-import.sh` nutzen `docker compose` und funktionieren dadurch
-mit beiden Stacks – gesteuert über `COMPOSE_FILE` und `COMPOSE_ENV_FILES`. Der zweite und dritte Parameter von
-`db-import.sh` ersetzt die URL (`wp search-replace`). Uploads (`wp-content/uploads`) liegen im Volume `wordpress`
-und müssen beim Umzug separat kopiert werden.
+- `scripts/setup.sh` lässt auf dem Server **Create Block Theme** weg (`SETUP_DEV_PLUGINS=0`) – das Theme ist read-only
+  eingehängt, Änderungen laufen immer über Git.
+- Updates: `git pull && docker compose up -d`. Theme, `mu-plugins/` und `scripts/wp/` kommen direkt aus dem Checkout.
+- Das Kontaktformular sendet auf Staging **echte Mails** an `CONTACT_MAIL_TO`. Zum Testen dort ggf. vorübergehend die eigene Adresse eintragen.
+- DB-Umzug: `./scripts/db-export.sh` (lokal) → per `scp` auf den Server → `./scripts/db-import.sh backups/db-….sql http://localhost:8080 https://staging.ecommerce-expert.de`
+  (mit den exportierten `COMPOSE_FILE`/`COMPOSE_ENV_FILES` aus Schritt 3). Uploads liegen im Volume `wordpress` und werden separat kopiert.
+- Backups: `docker compose run --rm -T wpcli wp db export /backups/db-$(date +%F).sql` per Cron plus das Volume `wordpress`.
 
-Updates: `git pull && docker compose --env-file deploy/.env -f deploy/docker-compose.yml up -d`.
-Das Theme ist read-only eingehängt – Änderungen laufen immer über Git, nicht über den Server.
-Backups: `wpc db export /backups/db-$(date +%F).sql` per Cron, dazu das Volume `wordpress` (Uploads) sichern.
+### Live-Gang (nur nach ausdrücklicher Freigabe)
 
-**Vor dem Go-live prüfen:** Mailversand (SMTP-Plugin oder Relay, sonst landet das Formular nicht im Postfach),
-Rechtstexte (Impressum, Datenschutz, Barrierefreiheit) veröffentlichen, alle Platzhalter ersetzen
-(siehe unten), Tests gegen die Live-URL: `WP_URL=https://ecommerce-expert.de npx playwright test`.
+Nicht automatisiert und **nicht ohne Freigabe von Daniel**. Die Checkliste steht in [TODO.md](TODO.md), Abschnitt 5.
+Kurzfassung: Platzhalter und Rechtstexte ersetzt, SPF/DKIM/DMARC aktiv und Zustellung getestet, DNS auf den VPS,
+`CADDYFILE=./Caddyfile.live` und `SITE_DOMAIN` setzen, URL per `wp search-replace` umstellen, `wp option update blog_public 1`.
 
-## Offene Platzhalter
+## Offene Platzhalter und To-dos
 
-`[PREIS]` (Pakete Website und Webshop), `[ANZAHL]` (Seiten, Artikel), `[E-MAIL]` (Kontakt-Link),
-`[ZEITRAUM]` (Antwortzeit im Kontaktabschnitt), `[BUDGET-STUFE 1–3]` (Formular-Auswahl) sowie die
-Platzhaltertexte der drei Rechtstexte-Seiten. Sie stehen in `theme/ecommerce-expert/patterns/*.php`
-bzw. `scripts/wp/contact-form.txt` und lassen sich auch im Site Editor ändern.
+Alle offenen Platzhalter (`[PREIS]`, `[ANZAHL]`, `[E-MAIL]`, `[ZEITRAUM]`, `[BUDGET-STUFE 1–3]`, Rechtstexte) mit Fundstellen sowie die
+Go-live-Checkliste stehen in **[TODO.md](TODO.md)**.

@@ -5,6 +5,8 @@ import { CONTACT_MAIL_TO, SMTP_FROM, searchMails, submitViaRest, uniqueToken, wa
  * Mailversand (SMTP über mu-plugins/ecommerce-expert-mail.php). Lokal und in CI fängt Mailpit die Mails ab.
  */
 test.describe('Mailversand', () => {
+  test.skip(!!process.env.SKIP_MAIL_TESTS, 'SKIP_MAIL_TESTS gesetzt (z. B. Staging ohne Mailpit)');
+
   test('Formular absenden → Mail kommt in Mailpit an (Empfänger, Absender-Domain, Reply-To)', async ({ page, request }, testInfo) => {
     const token = uniqueToken(`mail-${testInfo.project.name}`);
     await page.goto('/');

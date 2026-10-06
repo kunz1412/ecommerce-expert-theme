@@ -1,3 +1,6 @@
+# LIVE – ERST NACH AUSDRÜCKLICHER FREIGABE VERWENDEN (CADDYFILE=./Caddyfile.live in deploy/.env).
+# Öffentlich erreichbar, ohne Basic Auth, indexierbar. Vorher: Rechtstexte, Platzhalter, Mailversand, DNS (SPF/DKIM/DMARC).
+
 {
 	email {$ACME_EMAIL}
 }
